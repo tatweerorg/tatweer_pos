@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
-
 // use App\Http\Controllers\Home\HomeSliderController;
 // use App\Http\Controllers\Home\AboutController;
 // use App\Http\Controllers\Home\PortfolioController;
@@ -11,6 +10,7 @@ use App\Http\Controllers\AdminController;
 // use App\Http\Controllers\Home\BlogController;
 // use App\Http\Controllers\Home\FooterController;
 // use App\Http\Controllers\Home\ContactController;
+use App\Http\Controllers\Pos\EmployeeController;
 
 use App\Http\Controllers\Pos\SupplierController;
 use App\Http\Controllers\Pos\CustomerController;
@@ -19,8 +19,11 @@ use App\Http\Controllers\Pos\CategoryController;
 use App\Http\Controllers\Pos\ProductController;
 use App\Http\Controllers\Pos\PurchaseController;
 use App\Http\Controllers\Pos\DefaultController;
+use App\Http\Controllers\Pos\ExpenseController;
 use App\Http\Controllers\Pos\InvoiceController;
 use App\Http\Controllers\Pos\StockController;
+use App\Models\Employee;
+use App\Models\Expense;
 
 /*
 |--------------------------------------------------------------------------
@@ -302,6 +305,30 @@ Route::middleware('auth')->group(function(){
 
         Route::get('/supplier/wise/pdf','SupplierWisePdf')->name('supplier.wise.pdf');
         Route::get('/product/wise/pdf','ProductWisePdf')->name('product.wise.pdf');
+    });
+
+    // expense All route
+    Route::controller(ExpenseController::class)->group(function () {
+        Route::get('/expense/index', 'index')->name('expense.index');
+        Route::get('/expense/create', 'create')->name('expense.create');
+        Route::get('/expense/createcategort', 'createcategort')->name('expense.createcategort');
+
+
+        Route::post('/expense/store', 'store')->name('expense.store');
+        Route::get('/expense/category', 'category')->name('expense.category');
+        Route::get('/expense/print', 'print')->name('expense.print');
+        Route::get('/expense/report', 'report')->name('expense.report');
+
+
+
+       
+    });
+    Route::controller(EmployeeController::class)->group(function () {
+        Route::get('/employee/index', 'index')->name('employee.index');
+        Route::post('/employee/store', 'store')->name('employee.store');
+        Route::get('/employee/salares', 'salare')->name('employee.salares');
+        Route::get('/employee/presenceabsence', 'presenceabsence')->name('employee.presenceabsence');
+        Route::get('/employee/report', 'report')->name('employee.report');
     });
 
 });

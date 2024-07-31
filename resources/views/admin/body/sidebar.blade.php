@@ -100,11 +100,13 @@
                         <span>ادارة المصاريف</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('invoice.all')}}">جميع المصاريف</a></li>
-                        <li><a href="{{route('print.invoiceList')}}">فئات المصاريف </a></li>
-                        <li><a href="{{route('print.invoiceList')}}">طباعة المصاريف </a></li>
+                        <li><a href="{{route('expense.index')}}">جميع المصاريف</a></li>
+                        <li><a href="{{route('expense.category')}}">فئات المصاريف </a></li>
+                        <li><a href="{{route('expense.create')}}">اضافة المصاريف </a></li>
 
-                        <li><a href="{{route('daily.invoice.report')}}">تقرير المصاريف اليومية</a></li>
+                        <li><a href="{{route('expense.print')}}">طباعة المصاريف </a></li>
+
+                        <li><a href="{{route('expense.report')}}">تقرير المصاريف اليومية</a></li>
                     </ul>
                 </li>
                 <li class="menu-title">الموظفين</li>
@@ -115,11 +117,11 @@
                         <span>ادارة الموظفين</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('invoice.all')}}">جميع الموظفيين</a></li>
-                        <li><a href="{{route('print.invoiceList')}}">الرواتب</a></li>
-                        <li><a href="{{route('print.invoiceList')}}"> الحضور والغياب </a></li>
+                        <li><a href="{{route('employee.index')}}">جميع الموظفيين</a></li>
+                        <li><a href="{{route('employee.salares')}}">الرواتب</a></li>
+                        <li><a href="{{route('employee.presenceabsence')}}"> الحضور والغياب </a></li>
 
-                        <li><a href="{{route('daily.invoice.report')}}">تقرير الموظفين اليومية</a></li>
+                        <li><a href="{{route('employee.report')}}">تقرير الموظفين اليومية</a></li>
                     </ul>
                 </li>
 
