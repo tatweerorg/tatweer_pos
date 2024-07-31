@@ -94,6 +94,35 @@
                     </ul>
                 </li>
 
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-wallet-3-fill"></i>
+                        <span>ادارة المصاريف</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('invoice.all')}}">جميع المصاريف</a></li>
+                        <li><a href="{{route('print.invoiceList')}}">فئات المصاريف </a></li>
+                        <li><a href="{{route('print.invoiceList')}}">طباعة المصاريف </a></li>
+
+                        <li><a href="{{route('daily.invoice.report')}}">تقرير المصاريف اليومية</a></li>
+                    </ul>
+                </li>
+                <li class="menu-title">الموظفين</li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-team-fill"></i>
+                        <span>ادارة الموظفين</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('invoice.all')}}">جميع الموظفيين</a></li>
+                        <li><a href="{{route('print.invoiceList')}}">الرواتب</a></li>
+                        <li><a href="{{route('print.invoiceList')}}"> الحضور والغياب </a></li>
+
+                        <li><a href="{{route('daily.invoice.report')}}">تقرير الموظفين اليومية</a></li>
+                    </ul>
+                </li>
+
                 <li class="menu-title">المخزن</li>
 
                 <li>
@@ -104,7 +133,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('stock.report') }}">تقرير المخزن</a></li>
                         <li><a href="{{ route('stock.addproduct') }}">اضافة منتجات الى المخزن</a></li>
-                        <li><a href="{{ route('stock.supplier.report') }}">تقرير الموردين / المنتجات</a></li>
+                        <li><a href="{{ route('stock.supplier.report') }}">تقرير المنتجات</a></li>
                     </ul>
                 </li>
 

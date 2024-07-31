@@ -23,7 +23,7 @@
                                 @php
                                 $customerCount = App\Models\Customer::count();
                                 @endphp
-                                <p class="text-truncate font-size-14 mb-2">الزبائن</p>
+                                <p class="text-truncate font-size-22 mb-2">الزبائن</p>
                                 <h4 class="mb-2">{{ $customerCount }}</h4>
                             </div>
                             <div class="avatar-sm">
@@ -36,7 +36,7 @@
                 </div><!-- end card -->
             </div><!-- end col -->
 
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex">
@@ -44,7 +44,7 @@
                                 @php
                                 $supplierCount = App\Models\Supplier::count();
                                 @endphp
-                                <p class="text-truncate font-size-14 mb-2">الموردين</p>
+                                <p class="text-truncate font-size-22 mb-2">الموردين</p>
                                 <h4 class="mb-2">{{ $supplierCount }}</h4>
                             </div>
                             <div class="avatar-sm">
@@ -57,7 +57,7 @@
                 </div><!-- end card -->
             </div><!-- end col -->
 
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex">
@@ -65,7 +65,7 @@
                                 @php
                                 $productCount = App\Models\Product::count();
                                 @endphp
-                                <p class="text-truncate font-size-14 mb-2">المنتجات</p>
+                                <p class="text-truncate font-size-22 mb-2">المنتجات</p>
                                 <h4 class="mb-2">{{ $productCount }}</h4>
                             </div>
                             <div class="avatar-sm">
@@ -78,7 +78,7 @@
                 </div><!-- end card -->
             </div><!-- end col -->
 
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex">
@@ -86,7 +86,33 @@
                                 @php
                                 $totalBuyingPrice = App\Models\Purchase::where('status', 1)->sum('buying_price');
                                 @endphp
-                                <p class="text-truncate font-size-14 mb-2">إجمالي المشتريات</p>
+                                <p class="text-truncate font-size-22 mb-2">إجمالي المشتريات</p>
+                                <h4 class="mb-2">{{ $totalBuyingPrice }}</h4>
+                            </div>
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-light text-primary rounded-3">
+                                    <i class="mdi mdi-currency-usd font-size-24" style="color: rgb(88, 201, 88);"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div><!-- end cardbody -->
+                </div><!-- end card -->
+            </div><!-- end col -->
+            <div class="col-xl-3 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                @php
+                                $totalBuyingPrice = App\Models\Invoice::where('status', 1)
+                                ->with('invoice_details') // تحميل تفاصيل الفاتورة المرتبطة
+                                ->get()
+                                ->reduce(function ($carry, $invoice) {
+                                // جمع أسعار الشراء من تفاصيل الفاتورة
+                                return $carry + $invoice->invoice_details->sum('selling_price');
+                                }, 0);
+                                @endphp
+                                <p class="text-truncate font-size-22 mb-2">إجمالي المبيعات</p>
                                 <h4 class="mb-2">{{ $totalBuyingPrice }}</h4>
                             </div>
                             <div class="avatar-sm">

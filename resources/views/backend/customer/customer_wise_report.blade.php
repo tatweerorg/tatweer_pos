@@ -68,7 +68,7 @@
                                     </div>
 
                                     <div class="col-sm-4" style="padding-top: 28px;">
-                                        <button type="submit" class="btn btn-primary">Search</button>
+                                        <button type="submit" class="btn btn-primary">بحث</button>
                                     </div>
                                 </div>
                             </form>

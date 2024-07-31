@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">تقرير حسب المورد والمنتج</h4>
+                    <h4 class="mb-sm-0">تقرير حسب المنتج</h4>
                 </div>
             </div>
         </div>
@@ -22,9 +22,7 @@
                     <div class="card-body">
                         
                             <div class="col-md-12 text-center">
-                                <strong>تقرير حسب المورد</strong>
-                                <input type="radio" name="supplier_product_wise" value="supplier_wise" class="search_value">&nbsp;&nbsp;
-                                <br/>
+                            
 
                                 <strong>تقرير حسب المنتج</strong>
                                 <input type="radio" name="supplier_product_wise" value="product_wise" class="search_value">

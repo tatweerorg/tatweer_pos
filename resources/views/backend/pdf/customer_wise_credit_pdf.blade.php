@@ -36,9 +36,18 @@
                                             +970 568096370
                                         </address>
                                     </div>
-                                    <div class="col-6 mt-4 text-end">
+                                    <div class="col-6  text-end">
                                         <address>
 
+                                            @if($customer)
+                                            <strong>اسم الزبون: </strong> {{ $customer->name }}<br>
+                                            <strong>رقم الهاتف: </strong> {{ $customer->mobile_no }}<br>
+                                            <strong>العنوان: </strong> {{ $customer->	address }}<br>
+
+
+                                            @else
+                                            <p>لا توجد معلومات للزبون.</p>
+                                            @endif
                                         </address>
                                     </div>
                                 </div>
@@ -103,7 +112,7 @@
                                         @php
                                         $date = new DateTime('now',new DateTimeZone('Asia/Dhaka'));
                                         @endphp
-                                        <i>Printing Time : {{ $date->format('F j, Y, g:i a') }}</i><br/>
+                                        <i>Printing Time : {{ $date->format('F j, Y, g:i a') }}</i><br />
                                         <div class="d-print-none">
                                             <div class="float-end">
                                                 <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i></a>
