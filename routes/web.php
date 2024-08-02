@@ -189,6 +189,7 @@ Route::middleware('auth')->group(function(){
         Route::post('/customer/store','CustomerStore')->name('customer.store');
 
         Route::get('/customer/edit/{id}','CustomerEdit')->name('customer.edit');
+        Route::get('/customer/view/{id}','CustomerView')->name('customer.view');
         Route::post('/customer/update','CustomerUpdate')->name('customer.update');
 
         Route::get('/delete/customer/{id}','DeleteCustomer')->name('customer.delete');
