@@ -59,13 +59,13 @@ class CustomerController extends Controller
     }
     public function CustomerView($id){
         $customer = Customer::FindOrFail($id);
-        $creditPayments= Payment::where('customer_id',$id)
+        $Payments= Payment::where('customer_id',$id)
                                 -> whereIn('paid_status',['full_due','partial_paid'])
                                 ->get();
-        $paidPayments= Payment::where('customer_id',$id)
+        /* $paidPayments= Payment::where('customer_id',$id)
                               ->where('paid_status','!=','full_due')
-                              ->get();
-        return view('backend.customer.customer_view',compact('customer','creditPayments','paidPayments'));
+                              ->get(); */
+        return view('backend.customer.customer_view',compact('customer', 'Payments'));
     }
     public function CustomerUpdate(Request $request){
         $customer_id=$request->id;
