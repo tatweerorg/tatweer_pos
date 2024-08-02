@@ -41,7 +41,7 @@ class InvoiceController extends Controller
             $invoice_no = $invoice_data+1;
         }
 
-        date_default_timezone_set('Asia/Dhaka');
+        date_default_timezone_set('Asia/Hebron');
         $date = date('Y-m-d');
         return view('backend.invoice.invoice_add',compact('invoice_no','category','date','customer'));
     }

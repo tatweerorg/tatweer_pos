@@ -24,7 +24,7 @@
                             <div class="col-12">
                                 <div class="invoice-title">
                                     <h3>
-                                        <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo" height="100"/>
+                                        <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo" height="100" />
                                     </h3>
                                 </div>
                                 <hr>
@@ -55,48 +55,51 @@
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
-                                                <tr>
-                                                    <td><strong>Sl </strong></td>
-                                                    <td class="text-center"><strong>اسم الزبون</strong></td>
-                                                    <td class="text-center"><strong>رقم الفاتورة</strong>
-                                                    </td>
-                                                    <td class="text-center"><strong>التاريخ</strong>
-                                                    </td>
-                                                    <td class="text-center"><strong>المبلغ المستحق</strong>
-                                                    </td>
-                                                </tr>
+                                                    <tr>
+                                                        <td><strong>Sl </strong></td>
+                                                        <td class="text-center"><strong>اسم الزبون</strong></td>
+                                                        <td class="text-center"><strong>رقم الفاتورة</strong>
+                                                        </td>
+                                                        <td class="text-center"><strong>التاريخ</strong>
+                                                        </td>
+                                                        <td class="text-center"><strong>المبلغ المستحق</strong>
+                                                        </td>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
-                                                <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                                                @php
-                                                $total_due = '0';
-                                                @endphp
-                                                @foreach($allData as $key => $item)
-                                                <tr>
-                                                    <td class="text-center">{{ $key+1 }}</td>
-                                                    <td class="text-center">{{ $item['customer']['name'] }}</td>
-                                                    <td class="text-center">#{{ $item['invoice']['invoice_no'] }}</td>
-                                                    <td class="text-center">{{ date('d-m-Y',strtotime($item->date)) }}</td>
-                                                    <td class="text-center">{{ $item->due_amount }}</td>
-                                                </tr>
-                                                @php
-                                                $total_due += $item->due_amount;
-                                                @endphp
-                                                @endforeach
-                                                <tr>
-                                                    <td class="no-line"></td>
-                                                    <td class="no-line"></td>
-                                                    <td class="no-line"></td>
-                                                    <td class="no-line text-center">
-                                                        <strong>اجمالي المبلغ المستحق</strong></td>
-                                                    <td class="no-line text-end"><h4 class="m-0">${{ $total_due }}</h4></td>
-                                                </tr>
+                                                    <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                                                    @php
+                                                    $total_due = '0';
+                                                    @endphp
+                                                    @foreach($allData as $key => $item)
+                                                    <tr>
+                                                        <td class="text-center">{{ $key+1 }}</td>
+                                                        <td class="text-center">{{ $item['customer']['name'] }}</td>
+                                                        <td class="text-center">#{{ $item['invoice']['invoice_no'] }}</td>
+                                                        <td class="text-center">{{ date('d-m-Y',strtotime($item->date)) }}</td>
+                                                        <td class="text-center">{{ $item->due_amount }}</td>
+                                                    </tr>
+                                                    @php
+                                                    $total_due += $item->due_amount;
+                                                    @endphp
+                                                    @endforeach
+                                                    <tr>
+                                                        <td class="no-line"></td>
+                                                        <td class="no-line"></td>
+                                                        <td class="no-line"></td>
+                                                        <td class="no-line text-center">
+                                                            <strong>اجمالي المبلغ المستحق</strong>
+                                                        </td>
+                                                        <td class="no-line text-end">
+                                                            <h4 class="m-0"> ₪{{ $total_due }}</h4>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
 
                                         @php
-                                            $date = new DateTime('now',new DateTimeZone('Asia/Dhaka'));
+                                        $date = new DateTime('now',new DateTimeZone('Asia/Dhaka'));
                                         @endphp
                                         <i>Printing Time : {{ $date->format('F j, Y, g:i a') }}</i>
 
