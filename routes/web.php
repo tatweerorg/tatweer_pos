@@ -255,7 +255,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/purchase/all','PurchaseAll')->name('purchase.all');
         Route::get('/purchase/add','PurchaseAdd')->name('purchase.add');
         Route::post('/purchase/store','PurchaseStore')->name('purchase.store');
-
+        Route::get('/purchase/detials/{id}','PurchaseDetials')->name('purchase.details');
         Route::get('/delete/purchase/{id}','DeletePurchase')->name('purchase.delete');
 
         Route::get('/purchase/pending','PurchasePending')->name('purchase.pending');

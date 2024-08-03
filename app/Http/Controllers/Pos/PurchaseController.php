@@ -106,7 +106,16 @@ class PurchaseController extends Controller
     }
 }
 
-    
+public function PurchaseDetials($purchase_no) {
+    $purchases = Purchase::with(['purchasePayments'])->where ('purchase_no',$purchase_no)->get();
+    $payments = [];
+    foreach ($purchases as $purchase) {
+        foreach ($purchase->purchasePayments as $payment) {
+            $payments[] = $payment;
+        }
+    }    return view('backend.purchase.purchase_detials', compact('purchases', 'payments'));
+}
+
     public function DeletePurchase($id){
         Purchase::FindOrFail($id)->delete();
 
@@ -150,7 +159,8 @@ class PurchaseController extends Controller
     public function DailyPurchasePdf(Request $request){
         $start_date = date('Y-m-d',strtotime($request->start_date));
         $end_date = date('Y-m-d',strtotime($request->end_date));
-        $allData = Purchase::whereBetween('date',[$start_date,$end_date])->where('status','1')->get();
-        return view('backend.pdf.daily_purchase_report_pdf',compact('allData','start_date','end_date'));
+        $allData = Purchase::with(['product.unit', 'purchasePayments'])->whereBetween('date',[$start_date,$end_date])->where('status','1')->get();
+       $groupedData= $allData->groupBy('purchase_no');
+        return view('backend.pdf.daily_purchase_report_pdf',compact('allData','groupedData','start_date','end_date'));
     }
 }

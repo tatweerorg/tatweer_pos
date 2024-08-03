@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\PurchasePayment;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Purchase extends Model
 {
@@ -22,4 +23,8 @@ class Purchase extends Model
     public function category(){
         return $this->belongsTo(Category::class,'category_id','id');
     }
+    public function purchasePayments() {
+        return $this->hasMany(PurchasePayment::class);
+    }
+    
 }
