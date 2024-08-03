@@ -199,13 +199,14 @@
     <script type="text/javascript">
         // Paid amount For Partial Pay
         $(document).on('change', '#paid_status', function() {
-            var paid_status = $(this).val();
-            if (paid_status == 'partial_paid') {
-                $('.paid_amount').show();
-            } else {
-                $('.paid_amount').hide();
-            }
+        var paid_status = $(this).val();
+        if (paid_status == 'partial_paid') {
+            $('.paid_amount').show();
+        } else {
+            $('.paid_amount').hide();
+        }
         });
+
 
        
     </script>
