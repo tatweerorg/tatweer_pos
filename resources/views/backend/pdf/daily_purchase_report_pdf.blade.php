@@ -24,7 +24,8 @@
                             <div class="col-12">
                                 <div class="invoice-title">
                                     <h3>
-                                        <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo" height="100" />
+                                        <!-- <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo" height="100" /> -->
+                                        فحم الزين
                                     </h3>
                                 </div>
                                 <hr>

@@ -24,7 +24,8 @@
                             <div class="col-12">
                                 <div class="invoice-title">
                                     <h3>
-                                        <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo" height="100" />
+                                        <!-- <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo" height="100" /> -->
+                                        فحم الزين
                                     </h3>
                                 </div>
                                 <hr>
@@ -58,7 +59,7 @@
                                                         <td class="text-center"><strong>الفئة</strong>
                                                         </td>
                                                         <td class="text-center"><strong>اسم المنتج</strong>
-                                                       <!--  <td class="text-center"><strong>الكمية الداخلة </strong> -->
+                                                            <!--  <td class="text-center"><strong>الكمية الداخلة </strong> -->
                                                         <td class="text-center"><strong>الكمية الخارجة</strong>
                                                         </td>
                                                         <td class="text-center"><strong>المخزن</strong>
