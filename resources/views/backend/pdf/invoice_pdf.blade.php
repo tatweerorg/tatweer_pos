@@ -140,7 +140,7 @@
                                                         <td class="thick-line text-center">
                                                             <strong>المبلغ</strong>
                                                         </td>
-                                                        <td class="thick-line text-end">${{ $total_sum }}</td>
+                                                        <td class="thick-line text-end">₪{{ $total_sum }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="no-line"></td>
@@ -151,7 +151,7 @@
                                                         <td class="no-line text-center">
                                                             <strong>الخصم</strong>
                                                         </td>
-                                                        <td class="no-line text-end">${{ $payment->discount_amount }}</td>
+                                                        <td class="no-line text-end">₪{{ $payment->discount_amount }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="no-line"></td>
@@ -162,7 +162,7 @@
                                                         <td class="no-line text-center">
                                                             <strong>المبلغ المدفوع</strong>
                                                         </td>
-                                                        <td class="no-line text-end">${{ $payment->paid_amount }}</td>
+                                                        <td class="no-line text-end">₪{{ $payment->paid_amount }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="no-line"></td>
@@ -173,7 +173,7 @@
                                                         <td class="no-line text-center">
                                                             <strong>المبلغ المستحق</strong>
                                                         </td>
-                                                        <td class="no-line text-end">${{ $payment->due_amount }}</td>
+                                                        <td class="no-line text-end">₪{{ $payment->due_amount }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="no-line"></td>
@@ -185,7 +185,7 @@
                                                             <strong>المبلغ الاجمالي</strong>
                                                         </td>
                                                         <td class="no-line text-end">
-                                                            <h4 class="m-0">ILS{{ $payment->total_amount }}</h4>
+                                                            <h4 class="m-0">₪{{ $payment->total_amount }}</h4>
                                                         </td>
                                                     </tr>
                                                 </tbody>

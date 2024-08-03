@@ -44,7 +44,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                        $total_due = '0';
+                                        $total_paid = '0';
+                                        $total = '0';
+                                        @endphp
                                         @foreach ($Payments as $payment)
+
                                         <tr>
                                             <td>{{ $payment->invoice_id }}</td>
                                             <td>{{ $payment->created_at }}</td>
@@ -65,9 +71,30 @@
 
 
                                         </tr>
-                                        
+
+                                        @php
+                                        $total_due += $payment->due_amount;
+                                        $total_paid += $payment->paid_amount;
+                                        $total += $payment->total_amount;
+
+                                        @endphp
                                         @endforeach
-                                      
+                                        <tr>
+                                            <td class="no-line"></td>
+                                            <td class="no-line text-center">
+                                            </td>
+                                            <td class="no-line text-center">
+                                                <h4 class="m-0"> ₪{{ $total }}</h4>
+                                            </td>
+                                            <td class="no-line text-center">
+                                                <h4 class="m-0"> ₪{{ $total_due }}</h4>
+                                            </td>
+                                            <td class="no-line text-center">
+                                                <h4 class="m-0"> ₪{{ $total_paid }}</h4>
+                                            </td>
+                                            <td class="no-line"></td>
+                                        </tr>
+
                                     </tbody>
 
                                 </table>

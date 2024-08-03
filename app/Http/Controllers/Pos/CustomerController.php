@@ -60,7 +60,7 @@ class CustomerController extends Controller
     public function CustomerView($id){
         $customer = Customer::FindOrFail($id);
         $Payments= Payment::where('customer_id',$id)
-                                -> whereIn('paid_status',['full_due','partial_paid','full_paid'])
+                                -> whereIn('paid_status',['full_due','partial_paid', 'full_paid'])
                                 ->get();
         /* $paidPayments= Payment::where('customer_id',$id)
                               ->where('paid_status','!=','full_due')

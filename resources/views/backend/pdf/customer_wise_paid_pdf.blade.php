@@ -99,7 +99,7 @@
                                                                 <strong>اجمالي المبلغ المستحق</strong>
                                                             </td>
                                                             <td class="no-line text-end">
-                                                                <h4 class="m-0">${{ $total_due }}</h4>
+                                                                <h4 class="m-0">₪{{ $total_due }}</h4>
                                                             </td>
                                                         </tr>
                                                     </tbody>

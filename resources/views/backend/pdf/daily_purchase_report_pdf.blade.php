@@ -109,7 +109,7 @@
                                                             <strong>المبلغ الاجمالي</strong>
                                                         </td>
                                                         <td class="no-line text-end">
-                                                            <h4 class="m-0">${{ $total_sum }}</h4>
+                                                            <h4 class="m-0">₪{{ $total_sum }}</h4>
                                                         </td>
                                                     </tr>
                                                 </tbody>
