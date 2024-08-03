@@ -25,7 +25,8 @@
                                 <div class="invoice-title">
                                     <h4 class="float-end font-size-16"><strong>رقم الفاتورة # {{ $invoice->invoice_no }}</strong></h4>
                                     <h3>
-                                        <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo" height="100" />
+                                        <!-- <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo" height="100" /> -->
+                                         فحم الزين
                                     </h3>
                                 </div>
                                 <hr>
