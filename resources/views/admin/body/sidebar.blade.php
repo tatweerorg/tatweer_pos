@@ -22,6 +22,8 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('supplier.all')}}">جميع الموردين</a></li>
+                        <li><a href="{{route('supplier.credit')}}">مستحقات الموردين</a></li>
+
                     </ul>
                 </li>
 

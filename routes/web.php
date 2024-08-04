@@ -174,6 +174,12 @@ Route::middleware('auth')->group(function(){
         Route::get('/supplier/all','SupplierAll')->name('supplier.all');
         Route::get('/supplier/add','SupplierAdd')->name('supplier.add');
         Route::post('/supplier/store','SupplierStore')->name('supplier.store');
+        Route::get('/supplier/view/{id}', 'SupplierView')->name('supplier.view');
+        Route::get('/supplier/credit', 'SupplierCredit')->name('supplier.credit');
+        Route::get('/credit/supplier/', 'CreditSupplier')->name('credit.supplier');
+
+        Route::get('supplier/edit/invoice/{invoice_id}', 'SupplierEditInvoice')->name('supplier.edit.invoice');
+        Route::post('supplier/update/invoice/{invoice_id}', 'SupplierUpdateInvoice')->name('supplier.update.invoice');
 
         Route::get('/supplier/edit/{id}','SupplierEdit')->name('supplier.edit');
         Route::post('/supplier/update','SupplierUpdate')->name('supplier.update');

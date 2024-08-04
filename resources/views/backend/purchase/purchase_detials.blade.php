@@ -18,7 +18,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                      
+
                         <h4 class="card-title">حالة الدفع</h4>
                         <table class="table table-bordered">
                             <thead>
@@ -27,6 +27,8 @@
                                     <th>تاريخ الدفع</th>
                                     <th>المبلغ المدفوع</th>
                                     <th>المبلغ المتبقي</th>
+                                    <th>المبلغ الاجمالي</th>
+
                                     <th>حالة الدفع</th>
                                 </tr>
                             </thead>
@@ -37,6 +39,8 @@
                                     <td>{{ $purchases[0]->date }}</td>
                                     <td>{{ $payment->paid_amount }}</td>
                                     <td>{{ $payment->due_amount }}</td>
+                                    <td>{{ $payment->total_amount }}</td>
+
                                     <td>{{ $payment->paid_status }}</td>
                                 </tr>
                                 @endforeach
@@ -48,7 +52,7 @@
                 </div>
             </div> <!-- end col -->
         </div> <!-- end row -->
-        
+
     </div> <!-- container-fluid -->
 </div>
 
