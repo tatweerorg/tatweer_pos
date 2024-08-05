@@ -143,6 +143,29 @@ class InvoiceController extends Controller
         );
         return redirect()->route('invoice.pending')->with($notification);
     }
+    public function InvoiceDelete($invoice_no){
+        DB::transication(function() use ($invoice_no){
+            $invoice = Invoice::where('invoice_no',$invoice_no)->first();
+            if($invoice){
+                InvoiceDetial::where('invoice_id',$invoice->id)->delete();
+                Payment::where('invoice_id', $invoice->id)->delete();
+                PaymentDetail::where('invoice_id', $invoice->id)->delete();
+                $invoice->delete();
+                $notification=array(
+                    'message'=>'Invoice Deleted Successfully',
+                    'alert-type'=>'success',
+                );
+
+            }else {
+                $notification=array(
+                    'message'=>'Invoice Not Found',
+                    'alert-type'=>'error',
+                );
+            }
+            return redirect()->route('invoice.pending')->with($notification);
+
+        });
+    }
 
     public function PendingList(){
         $allData = Invoice::orderBy('date','desc')->orderBy('id','desc')->where('status','0')->get();

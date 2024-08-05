@@ -263,6 +263,7 @@ Route::middleware('auth')->group(function(){
         Route::post('/purchase/store','PurchaseStore')->name('purchase.store');
         Route::get('/purchase/detials/{id}','PurchaseDetials')->name('purchase.details');
         Route::get('/delete/purchase/{id}','DeletePurchase')->name('purchase.delete');
+        Route::get('/delete/purchaseAfterApprove/{purchase_no}','PurchaseDelete')->name('purchase.deleteafterapprove');
 
         Route::get('/purchase/pending','PurchasePending')->name('purchase.pending');
         Route::get('/purchase/approve/{id}','PurchaseApprove')->name('purchase.approve');
@@ -288,6 +289,7 @@ Route::middleware('auth')->group(function(){
 
         Route::get('/invoice/pending/list','PendingList')->name('invoice.pending');
         Route::get('/delete/invoice/{id}','DeleteInvoice')->name('invoice.delete');
+        Route::get('/delete/invoiceAfterApprove/{invoice_no}','InvoiceDelete')->name('invoice.deleteafterapprove');
         Route::get('/invoice/approve/{id}','InvoiceApprove')->name('invoice.approve');
         Route::post('/approve/store/{id}','ApprovalStore')->name('approval.store');
 
