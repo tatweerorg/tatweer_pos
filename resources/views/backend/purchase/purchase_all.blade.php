@@ -63,10 +63,12 @@
                                         @if($item->status == '0')
                                         <a href="{{route('purchase.delete',$item->id)}}" class="btn btn-danger sm" title="Delete Data" id="delete"><i class="fas fa-trash"></i></a>
                                         @endif
-                                                                                <a href="{{ route('purchase.details', $item->purchase_no) }}" class="btn btn-secondary sm" title="View Details"><i class="fas fa-info-circle"></i></a>
+                                        <a href="{{ route('purchase.details', $item->purchase_no) }}" class="btn btn-secondary sm" title="View Details"><i class="fas fa-info-circle"></i></a>
+                                        <a href="{{route('purchase.deleteafterapprove', $item->purchase_no)}}" class="btn btn-danger sm" title="Delete Data" id="delete"><i class="fas fa-trash"></i></a>
+
 
                                     </td>
-                                  
+
                                 </tr>
                                 @endforeach
                             </tbody>

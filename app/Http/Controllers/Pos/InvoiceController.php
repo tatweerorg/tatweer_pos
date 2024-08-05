@@ -144,10 +144,9 @@ class InvoiceController extends Controller
         return redirect()->route('invoice.pending')->with($notification);
     }
     public function InvoiceDelete($invoice_no){
-        DB::transication(function() use ($invoice_no){
             $invoice = Invoice::where('invoice_no',$invoice_no)->first();
             if($invoice){
-                InvoiceDetial::where('invoice_id',$invoice->id)->delete();
+                InvoiceDetail::where('invoice_id',$invoice->id)->delete();
                 Payment::where('invoice_id', $invoice->id)->delete();
                 PaymentDetail::where('invoice_id', $invoice->id)->delete();
                 $invoice->delete();
@@ -162,9 +161,9 @@ class InvoiceController extends Controller
                     'alert-type'=>'error',
                 );
             }
-            return redirect()->route('invoice.pending')->with($notification);
+        return redirect()->back()->with($notification);
 
-        });
+     
     }
 
     public function PendingList(){
