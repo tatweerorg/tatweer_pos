@@ -102,7 +102,7 @@
                         <span>ادارة المصاريف</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('expense.index')}}">جميع المصاريف</a></li>
+                        <li><a href="{{route('expense.all')}}">جميع المصاريف</a></li>
                         <li><a href="{{route('expense.category')}}">فئات المصاريف </a></li>
                         <li><a href="{{route('expense.create')}}">اضافة المصاريف </a></li>
 

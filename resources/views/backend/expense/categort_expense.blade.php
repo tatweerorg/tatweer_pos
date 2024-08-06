@@ -19,7 +19,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <a href="{{route('expense.createcategort')}}" class="btn btn-secondary waves-effect waves-light" style="float:right;">اضافة فئة</a>
+                        <a href="{{route('expense.createcategory')}}" class="btn btn-secondary waves-effect waves-light" style="float:right;">اضافة فئة</a>
                         <br><br>
 
                         <h4 class="card-title"  >جميع بيانات فئات المصاريف</h4><br>
@@ -29,21 +29,27 @@
                                 <tr>
                                     <th width="5%">#</th>
                                     <th>الاسم</th>
+                                    <th>التفاصيل</th>
+                                    <th>عدد المصروفات</th>
                                     <th width="20%">العمليات</th>
                                 </tr>
                             </thead>
 
 
                             <tbody>
+                            @foreach($categories as $index=>$category)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$index +1}}</td>
+                                    <td>{{$category->name}}</td>
+                                    <td>{{$category->description}}</td>
+                                    <td>{{$category->expenses_count}}</td>
                                     <td>
-                                        <a href="" class="btn btn-info sm" title="Edit Data"><i class="fas fa-edit"></i></a>
+                                        <a href="{{route('expense.editcategory',$category->id)}}" class="btn btn-info sm" title="Edit Data"><i class="fas fa-edit"></i></a>
 
                                         <a href="" class="btn btn-danger sm" title="Delete Data" id="delete"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
 

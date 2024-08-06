@@ -13,7 +13,7 @@
 
                         <h4 class="card-title">صفحة اضافة فئات المصاريف</h4><br>
 
-                        <form method="post" action="" id="myForm">
+                        <form method="post" action="{{ route('expense.storecategory') }}" id="myForm">
                             @csrf
 
 

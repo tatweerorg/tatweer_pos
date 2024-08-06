@@ -318,12 +318,16 @@ Route::middleware('auth')->group(function(){
 
     // expense All route
     Route::controller(ExpenseController::class)->group(function () {
-        Route::get('/expense/index', 'index')->name('expense.index');
-        Route::get('/expense/create', 'create')->name('expense.create');
-        Route::get('/expense/createcategort', 'createcategort')->name('expense.createcategort');
-
+            Route::get('/expense/all','ExpenseAll')->name('expense.all');
+            Route::get('/expense/create', 'create')->name('expense.create');
+            Route::get('/expense/createcategory', 'createcategory')->name('expense.createcategory');
+        Route::get('/expense/editcategory/{id}', 'editcategory')->name('expense.editcategory');
+        Route::get('/expense/deletecategory/{id}','deletecategory')->name('expense.deletecategory');
 
         Route::post('/expense/store', 'store')->name('expense.store');
+        Route::post('/expense/createcategory', 'storecategory')->name('expense.storecategory');
+        Route::post('/expense/updatecategory/{id}', 'updatecategory')->name('expense.updatecategory');
+
         Route::get('/expense/category', 'category')->name('expense.category');
         Route::get('/expense/print', 'print')->name('expense.print');
         Route::get('/expense/report', 'report')->name('expense.report');
@@ -332,6 +336,7 @@ Route::middleware('auth')->group(function(){
 
        
     });
+   
     Route::controller(EmployeeController::class)->group(function () {
         Route::get('/employee/index', 'index')->name('employee.index');
         Route::post('/employee/store', 'store')->name('employee.store');

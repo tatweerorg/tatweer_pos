@@ -25,8 +25,18 @@
                             </div>
                             <!-- end row -->
 
-
-
+ <div class="row mb-3 mt-3">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">التاريخ</label>
+                                <div class="form-group col-sm-10">
+                                    <input name="date" class="form-control" type="date" value="">
+                                </div>
+                            </div>
+<div class="row mb-3 mt-3">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">المرجع</label>
+                                <div class="form-group col-sm-10">
+                                    <input name="refrence" class="form-control" type="text" value="">
+                                </div>
+                            </div>
                             <div class="row mb-3 mt-3">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">المبلغ</label>
                                 <div class="form-group col-sm-10">
