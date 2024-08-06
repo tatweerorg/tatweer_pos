@@ -19,36 +19,45 @@
                 <div class="card">
                     <div class="card-body">
 
-                    <a href="{{route('invoice.add')}}" class="btn btn-secondary waves-effect waves-light" style="float:right;">اضافة فاتورة</a>
-                    <br><br>
+                        <a href="{{route('invoice.add')}}" class="btn btn-secondary waves-effect waves-light" style="float:right;">اضافة فاتورة</a>
+                        <br><br>
 
                         <h4 class="card-title">بيانات جميع الفواتير</h4><br>
 
                         <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>اسم الزبون</th>
-                                <th>رقم الفاتورة</th>
-                                <th>التاريخ</th>
-                                <th>الملاحظات</th>
-                                <th>المبلغ </th>
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>اسم الزبون</th>
+                                    <th>رقم الفاتورة</th>
+                                    <th>التاريخ</th>
+                                    <th>الملاحظات</th>
+                                    <th>المبلغ </th>
+                                    <th>العمليات </th>
+
+                                </tr>
                             </thead>
 
 
                             <tbody>
-                            @foreach($allData as $key =>$item)
-                            <tr>
-                                <td>{{( $key+1 )}}</td>
-                                <td>{{( $item['payment']['customer']['name'] )}}</td>
-                                <td>#{{( $item->invoice_no )}}</td>
-                                <td>{{ date('d-m-Y',strtotime($item->date)) }}</td>
-                                <td>{{( $item->description )}}</td>
+                                @foreach($allData as $key =>$item)
+                                <tr>
+                                    <td>{{( $key+1 )}}</td>
+                                    <td>{{( $item['payment']['customer']['name'] )}}</td>
+                                    <td>#{{( $item->invoice_no )}}</td>
+                                    <td>{{ date('d-m-Y',strtotime($item->date)) }}</td>
+                                    <td>{{( $item->description )}}</td>
 
-                                <td>$ {{( $item['payment']['total_amount'] )}}</td>
-                            </tr>
-                            @endforeach
+                                    <td>$ {{( $item['payment']['total_amount'] )}}</td>
+                                    <td>
+
+                                        <a href="{{route('invoice.deleteafterapprove', $item->invoice_no)}}" class="btn btn-danger sm" title="Delete Data" id="delete"><i class="fas fa-trash"></i></a>
+
+
+                                    </td>
+                                </tr>
+
+                                @endforeach
                             </tbody>
                         </table>
 

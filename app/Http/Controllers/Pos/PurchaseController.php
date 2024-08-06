@@ -106,7 +106,6 @@ class PurchaseController extends Controller
         }
     }
     public function PurchaseDelete($purchase_no){
-        DB::transaction(function() use($purchase_no){
             $purchases= Purchase::where('purchase_no',$purchase_no)->get();
             if($purchases->isNotEmpty()){
                 foreach($purchases as $purchase){
@@ -125,7 +124,7 @@ class PurchaseController extends Controller
             }
             return redirect()->route('purchase.all')->with($notification);
 
-        });
+        
     }
 
 public function PurchaseDetials($purchase_no) {
