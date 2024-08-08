@@ -30,10 +30,10 @@
                                 <th>#</th>
                                 <th>رقم المصروف</th>
                                 <th>التاريخ</th>
-                                <th>التفاصيل</th>
                                 <th>المرجع </th>
                                 <th>الكمية </th>
                                 <th>الفئة </th>
+                                <th>العمليات </th>
                             </tr>
                             </thead>
 
@@ -44,10 +44,12 @@
                                 <td>{{( $key+1 )}}</td>
                                 <td>{{( $item->id )}}</td>
                                 <td>#{{( $item->date )}}</td>
-                                <td>{{$item->detials}}</td>
                                 <td>{{$item->refrence }}</td>
                                 <td>{{$item->amount }}</td>
-                                <td>{{ $item->category ? $item->category->name : 'N/A' }}</td>
+                                <td>{{$item->category->name }}</td>
+                                <td>    
+                                    <a href="{{route('expense.print',$item->id)}}" class="btn btn-info sm" title="Print Expense"><i class="fas fa-print"></i></a>
+                                </td>
 
                             </tr>
                             @endforeach

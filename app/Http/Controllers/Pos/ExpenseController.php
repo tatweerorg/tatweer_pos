@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Pos;
 
-use App\Models\Expense;
+use App\Models\User;
 
+use App\Models\Expense;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\ExpenseCategory;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
 {
@@ -25,9 +27,18 @@ class ExpenseController extends Controller
         $categories  = ExpenseCategory::withCount('expenses')->get();
         return view('backend.expense.categort_expense',compact('categories'));
     }
-    public function print()
+    public function printList()
     {
-        return view('backend.expense.print');
+        $allData= Expense::with('category')->orderBy('date','desc')->get();
+        return view('backend.expense.print_list',compact('allData'));
+    }
+    public function printExpense($id){
+        $expense=Expense::with('category')->FindOrFail($id);
+        $createdById= $expense->created_by;
+        $creator=User::find($createdById);
+        $creatorName=$creator->name;
+        return view('backend.pdf.Expense_pdf',compact('expense', 'creatorName'));
+
     }
     public function report()
     {
@@ -60,6 +71,7 @@ class ExpenseController extends Controller
             'detials'=>$request->detials,
             'category_id' => $request->category_id,
             'created_at'=>Carbon::now(),
+            'created_by' => Auth::user()->id
 
         ]);
         $notification = array(

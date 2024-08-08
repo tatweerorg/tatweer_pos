@@ -106,7 +106,7 @@
                         <li><a href="{{route('expense.category')}}">فئات المصاريف </a></li>
                         <li><a href="{{route('expense.create')}}">اضافة المصاريف </a></li>
 
-                        <li><a href="{{route('expense.print')}}">طباعة المصاريف </a></li>
+                        <li><a href="{{route('expense.printList')}}">طباعة المصاريف </a></li>
 
                         <li><a href="{{route('expense.report')}}">تقرير المصاريف اليومية</a></li>
                     </ul>

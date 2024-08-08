@@ -7,7 +7,7 @@
     <div class="container-fluid">
 
 
-        <h1>PRINT</h1>
+        <h1>print</h1>
     </div>
 </div>
 

@@ -238,13 +238,11 @@ class InvoiceController extends Controller
     public function PrintInvoice($id){
         $invoice=invoice::with('invoice_details')->FindOrFail($id);
         // الحصول على معرف المستخدم الذي أنشأ الفاتورة
-$createdById = $invoice->created_by;
-
-// استرجاع المستخدم الذي أنشأ الفاتورة
-$creator = User::find($createdById);
-
-// الحصول على اسم المستخدم
-$creatorName =  $creator->name;
+        $createdById = $invoice->created_by;
+        // استرجاع المستخدم الذي أنشأ الفاتورة
+        $creator = User::find($createdById);
+        // الحصول على اسم المستخدم
+        $creatorName =  $creator->name;
         return view('backend.pdf.invoice_pdf',compact('invoice', 'creatorName'));
     }
 

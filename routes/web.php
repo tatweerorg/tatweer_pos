@@ -329,7 +329,8 @@ Route::middleware('auth')->group(function(){
         Route::post('/expense/updatecategory/{id}', 'updatecategory')->name('expense.updatecategory');
 
         Route::get('/expense/category', 'category')->name('expense.category');
-        Route::get('/expense/print', 'print')->name('expense.print');
+        Route::get('/expense/print/list', 'printList')->name('expense.printList');
+        Route::get('/expense/print/{id}', 'printExpense')->name('expense.print');
         Route::get('/expense/report', 'report')->name('expense.report');
 
 
