@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminController;
 // use App\Http\Controllers\Home\FooterController;
 // use App\Http\Controllers\Home\ContactController;
 use App\Http\Controllers\Pos\EmployeeController;
+use App\Http\Controllers\Pos\EmployeeAttendanceController;
 
 use App\Http\Controllers\Pos\SupplierController;
 use App\Http\Controllers\Pos\CustomerController;
@@ -344,6 +345,20 @@ Route::middleware('auth')->group(function(){
         Route::get('/employee/salares', 'salare')->name('employee.salares');
         Route::get('/employee/presenceabsence', 'presenceabsence')->name('employee.presenceabsence');
         Route::get('/employee/report', 'report')->name('employee.report');
+Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
+Route::get('/employee/edit/{id}', [EmployeeController::class, 'edit'])->name('employee.edit');
+Route::get('/employee/delete/{id}', [EmployeeController::class, 'destroy'])->name('employee.delete');
+
+
+        Route::post('/employee/update/{id}', [EmployeeController::class, 'update'])->name('employee.update');
+
+
     });
 
+});
+
+Route::prefix('attendance')->group(function () {
+    Route::get('/attendance', [EmployeeAttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('/attendance/create', [EmployeeAttendanceController::class, 'create'])->name('attendance.create');
+    Route::post('/attendance/store', [EmployeeAttendanceController::class, 'store'])->name('attendance.store');
 });

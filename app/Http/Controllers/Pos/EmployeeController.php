@@ -14,11 +14,74 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('backend.employee.index');
+        $allData = Employee::get();
+
+        return view(
+        'backend.employee.index', compact('allData'));
+
     }
+    public function create()
+    {
+        return view('backend.employee.create');
+    }
+
+    // Store a newly created employee in storage
+    public function store(Request $request)
+    {
+        $employee = new Employee();
+        $employee->name = $request->name;
+        $employee->balance = $request->balance;
+        $employee->worktype = $request->worktype;
+        $employee->startdate = $request->startdate;
+        $employee->jobtype = $request->jobtype;
+        $employee->save();
+
+        return redirect()->route('employee.index')->with('success', 'Employee added successfully');
+    }
+
+    // Show the form for editing the specified employee
+    public function edit($id)
+    {
+        $employee = Employee::findOrFail($id);
+        return view('backend.employee.edit', compact('employee'));
+    }
+
+    // Update the specified employee in storage
+    public function update(Request $request, $id)
+    {
+        $employee = Employee::findOrFail($id);
+        $employee->name = $request->name;
+        $employee->balance = $request->balance;
+        $employee->worktype = $request->worktype;
+        $employee->startdate = $request->startdate;
+        $employee->jobtype = $request->jobtype;
+        $employee->save();
+
+        return redirect()->route('employee.index')->with('success', 'Employee updated successfully');
+    }
+
+    // Remove the specified employee from storage
+    public function destroy($id)
+    {
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
+
+        return redirect()->route('employee.index')->with('success', 'Employee deleted successfully');
+    }
+
     public function salare()
     {
-        return view('backend.employee.salares');
+        $allData = Employee::all();
+
+        // Calculate the sum of all balances
+        $totalBalance = Employee::sum('balance');
+        $balancesByWorktype = Employee::select('worktype', \DB::raw('SUM(balance) as total_balance'))
+        ->groupBy('worktype')
+        ->get();
+
+        // Pass data to the view
+        return view( 'backend.employee.salares', compact('allData',
+        'totalBalance', 'balancesByWorktype'));
     }
     public function presenceabsence()
     {
@@ -29,22 +92,7 @@ class EmployeeController extends Controller
         return view('backend.employee.report');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
+  
     /**
      * Display the specified resource.
      */
@@ -53,27 +101,5 @@ class EmployeeController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Employee $employee)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Employee $employee)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Employee $employee)
-    {
-        //
-    }
+  
 }

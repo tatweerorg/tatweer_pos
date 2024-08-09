@@ -121,7 +121,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('employee.index')}}">جميع الموظفيين</a></li>
                         <li><a href="{{route('employee.salares')}}">الرواتب</a></li>
-                        <li><a href="{{route('employee.presenceabsence')}}"> الحضور والغياب </a></li>
+                        <li><a href="{{route('attendance.index')}}"> الحضور والغياب </a></li>
 
                         <li><a href="{{route('employee.report')}}">تقرير الموظفين اليومية</a></li>
                     </ul>
