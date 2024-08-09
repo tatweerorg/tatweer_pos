@@ -104,6 +104,10 @@ class ExpenseController extends Controller
 
         return redirect()->route('expense.category')->with($notification);
     }
+    public function edit($id)
+    {
+        return view('backend.expense.edit');
+    }
 
     public function editcategory($id){
         $category = ExpenseCategory::findOrFail($id);
@@ -151,10 +155,7 @@ class ExpenseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Expense $expense)
-    {
-        //
-    }
+ 
 
     /**
      * Update the specified resource in storage.
