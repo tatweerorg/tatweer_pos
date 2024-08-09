@@ -55,18 +55,16 @@ class ExpenseController extends Controller
     }
 
     public function store(Request $request){
-        $request->validate([
+         /* $request->validate([
             'name'=>'required|string|max:255',
             'date'=>'required|date',
-            'refrence'=>'required|string',
-            'amount'=>'required|integer',
+            'amount'=>'required',
             'detials'=>'nullable|string',
             'category_id'=>'nullable|integer|exists:categories,id',
-        ]);
+        ]);  */
         Expense::insert([
             'name'=>$request->name,
             'date'=>$request->date,
-            'refrence'=>$request->refrence,
             'amount'=>$request->amount,
             'detials'=>$request->detials,
             'category_id' => $request->category_id,

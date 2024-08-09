@@ -23,6 +23,12 @@
                                     <input name="name" class="form-control" type="text" value="">
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <label for="description" class="col-sm-2 col-form-label">التفاصيل</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" name="description" id="description"></textarea>
+                                </div>
+                            </div>
                             <!-- end row -->
 
 

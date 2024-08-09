@@ -19,38 +19,40 @@
                 <div class="card">
                     <div class="card-body">
 
-                    <a href="{{route('expense.create')}}" class="btn btn-secondary waves-effect waves-light" style="float:right;">اضافة مصروف</a>
-                    <br><br>
+                        <a href="{{route('expense.create')}}" class="btn btn-secondary waves-effect waves-light" style="float:right;">اضافة مصروف</a>
+                        <br><br>
 
                         <h4 class="card-title">بيانات جميع المصاريف</h4><br>
 
                         <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>رقم المصروف</th>
-                                <th>التاريخ</th>
-                                <th>التفاصيل</th>
-                                <th>المرجع </th>
-                                <th>الكمية </th>
-                                <th>الفئة </th>
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>التاريخ</th>
+                                    <th>التفاصيل</th>
+                                    <th>المبلغ </th>
+                                    <th>الفئة </th>
+                                    <th>العمليات </th>
+
+                                </tr>
                             </thead>
 
 
                             <tbody>
-                            @foreach($allData as $key =>$item)
-                            <tr>
-                                <td>{{( $key+1 )}}</td>
-                                <td>{{( $item->id )}}</td>
-                                <td>#{{( $item->date )}}</td>
-                                <td>{{$item->detials}}</td>
-                                <td>{{$item->refrence }}</td>
-                                <td>{{$item->amount }}</td>
-                                <td>{{ $item->category ? $item->category->name : 'N/A' }}</td>
+                                @foreach($allData as $key =>$item)
+                                <tr>
+                                    <td>{{( $key+1 )}}</td>
+                                    <td>{{( $item->date )}}</td>
+                                    <td>{{$item->detials}}</td>
+                                    <td>{{$item->amount }}</td>
+                                    <td>{{ $item->category ? $item->category->name : 'N/A' }}</td>
+                                    <td>
+                                        <a href="{{route('expense.edit',$item->id)}}" class="btn btn-info sm" title="Edit Data"><i class="fas fa-edit"></i></a>
 
-                            </tr>
-                            @endforeach
+                                        <a href="{{route('expense.delete',$item->id)}}" class="btn btn-danger sm" title="Delete Data" id="delete"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
 
