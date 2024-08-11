@@ -336,9 +336,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/expense/category', 'category')->name('expense.category');
         Route::get('/expense/print/list', 'printList')->name('expense.printList');
         Route::get('/expense/print/{id}', 'printExpense')->name('expense.print');
-        Route::get('/expense/report', 'report')->name('expense.report');
-
-
+        Route::get('/daily/expense/report','DailyExpenseReport')->name('daily.expense.report');
+        Route::get('/daily/expense/pdf','DailyExpensePdf')->name('daily.expense.pdf');
 
        
     });

@@ -108,7 +108,7 @@
 
                         <li><a href="{{route('expense.printList')}}">طباعة المصاريف </a></li>
 
-                        <li><a href="{{route('expense.report')}}">تقرير المصاريف اليومية</a></li>
+                        <li><a href="{{route('daily.expense.report')}}">تقرير المصاريف اليومية</a></li>
                     </ul>
                 </li>
                 <li class="menu-title">الموظفين</li>

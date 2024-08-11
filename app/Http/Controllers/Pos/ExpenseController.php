@@ -40,9 +40,15 @@ class ExpenseController extends Controller
         return view('backend.pdf.Expense_pdf',compact('expense', 'creatorName'));
 
     }
-    public function report()
+    public function DailyExpenseReport()
     {
-        return view('backend.expense.report');
+        return view('backend.expense.daily_expense_report');
+    }
+    public function DailyExpensePdf(Request $request){
+        $start_date=date('Y-m-d',strtotime($request->start_date));
+        $end_date=date('Y-m-d',strtotime($request->end_date));
+        $allData=Expense::whereBetween ('date',[$start_date,$end_date])->get();
+        return view('backend.pdf.daily_expense_report_pdf',compact('allData','start_date','end_date'));
     }
     /**
      * Show the form for creating a new resource.
