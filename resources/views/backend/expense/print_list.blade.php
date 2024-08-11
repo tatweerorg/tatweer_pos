@@ -30,7 +30,6 @@
                                 <th>#</th>
                                 <th>رقم المصروف</th>
                                 <th>التاريخ</th>
-                                <th>المرجع </th>
                                 <th>الكمية </th>
                                 <th>الفئة </th>
                                 <th>العمليات </th>
@@ -44,7 +43,6 @@
                                 <td>{{( $key+1 )}}</td>
                                 <td>{{( $item->id )}}</td>
                                 <td>#{{( $item->date )}}</td>
-                                <td>{{$item->refrence }}</td>
                                 <td>{{$item->amount }}</td>
                                 <td>{{$item->category->name }}</td>
                                 <td>    
