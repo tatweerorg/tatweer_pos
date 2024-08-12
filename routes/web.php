@@ -22,6 +22,7 @@ use App\Http\Controllers\Pos\PurchaseController;
 use App\Http\Controllers\Pos\DefaultController;
 use App\Http\Controllers\Pos\ExpenseController;
 use App\Http\Controllers\Pos\InvoiceController;
+use App\Http\Controllers\pos\SalaryController;
 use App\Http\Controllers\Pos\StockController;
 use App\Models\Employee;
 use App\Models\Expense;
@@ -343,21 +344,30 @@ Route::middleware('auth')->group(function(){
 
        
     });
+    
    
     Route::controller(EmployeeController::class)->group(function () {
         Route::get('/employee/index', 'index')->name('employee.index');
+        Route::get('/employee/salary/{id}', 'salarydetails')->name('employee.salarydetails');
+
         Route::post('/employee/store', 'store')->name('employee.store');
         Route::get('/employee/salares', 'salare')->name('employee.salares');
         Route::get('/employee/presenceabsence', 'presenceabsence')->name('employee.presenceabsence');
         Route::get('/employee/report', 'report')->name('employee.report');
-Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
-Route::get('/employee/edit/{id}', [EmployeeController::class, 'edit'])->name('employee.edit');
-Route::get('/employee/delete/{id}', [EmployeeController::class, 'destroy'])->name('employee.delete');
+        Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
+        Route::get('/employee/edit/{id}', [EmployeeController::class, 'edit'])->name('employee.edit');
+        Route::get('/employee/delete/{id}', [EmployeeController::class, 'destroy'])->name('employee.delete');
 
 
         Route::post('/employee/update/{id}', [EmployeeController::class, 'update'])->name('employee.update');
 
 
+    });
+    Route::controller(SalaryController::class)->group(function () {
+
+
+        Route::get('/employee/salary/{id}', 'show')->name('employee.salarydetails');
+        Route::post('/salary-details', 'store')->name('salary-details.store');
     });
 
 });
@@ -367,3 +377,4 @@ Route::prefix('attendance')->group(function () {
     Route::get('/attendance/create', [EmployeeAttendanceController::class, 'create'])->name('attendance.create');
     Route::post('/attendance/store', [EmployeeAttendanceController::class, 'store'])->name('attendance.store');
 });
+

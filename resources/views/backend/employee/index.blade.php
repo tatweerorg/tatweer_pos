@@ -29,7 +29,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>الاسم</th>
-                                    <th>الرصيد</th>
+                                    <th>الراتب</th>
                                     <th>نوع العمل</th>
                                     <th>تاريخ البدء</th>
                                     <th>نوع الوظيفة</th>
@@ -50,6 +50,10 @@
                                         <a href="{{ route('employee.edit', $item->id) }}" class="btn btn-info sm" title="Edit Data"><i class="fas fa-edit"></i></a>
 
                                         <a href="{{ route('employee.delete', $item->id) }}" class="btn btn-danger sm" title="Delete Data" id="delete"><i class="fas fa-trash"></i></a>
+                                        <a href="{{ route('employee.salarydetails', $item->id) }}" class="btn btn-success  sm" title="info Data" id="info"><i class="fas fa-money-bill-wave"></i></a>
+
+
+
                                     </td>
                                 </tr>
                                 @endforeach
