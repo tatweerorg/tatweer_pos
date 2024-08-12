@@ -45,6 +45,7 @@
                                         <option value="hours" {{ $employee->worktype == 'hours' ? 'selected' : '' }}>ساعات</option>
                                         <option value="days" {{ $employee->worktype == 'days' ? 'selected' : '' }}>أيام</option>
                                         <option value="months" {{ $employee->worktype == 'months' ? 'selected' : '' }}>شهور</option>
+                                        <option value="months" {{ $employee->worktype == 'Contractor' ? 'selected' : '' }}>مقاولة</option>
                                     </select>
                                 </div>
                             </div>

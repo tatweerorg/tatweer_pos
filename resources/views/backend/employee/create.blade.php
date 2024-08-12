@@ -45,6 +45,7 @@
                                         <option value="hours">ساعات</option>
                                         <option value="days">أيام</option>
                                         <option value="months">شهور</option>
+                                        <option value="Contractor ">مقاولة</option>
                                     </select>
                                 </div>
                             </div>
