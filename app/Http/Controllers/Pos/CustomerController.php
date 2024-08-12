@@ -110,8 +110,11 @@ class CustomerController extends Controller
 
     public function DeleteCustomer($id){
         $customers=Customer::FindOrFail($id);
-        $img = $customers->customer_image;
-        unlink($img);
+        if($customers->customer_image){
+
+            $img = $customers->customer_image;
+            unlink($img);
+        }
 
         Customer::FindOrFail($id)->delete();
 

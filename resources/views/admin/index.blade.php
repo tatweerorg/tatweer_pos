@@ -15,7 +15,8 @@
         <!-- end page title -->
 
         <div class="row">
-            <div class="col-xl-3 col-md-6">
+
+            <div class="col-xl-2 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex">
@@ -98,7 +99,7 @@
                     </div><!-- end cardbody -->
                 </div><!-- end card -->
             </div><!-- end col -->
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2  col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex">
@@ -124,7 +125,29 @@
                     </div><!-- end cardbody -->
                 </div><!-- end card -->
             </div><!-- end col -->
+            <div class="col-xl-2  col-md-6">
+                <div class="card" >
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                @php
+                                $allData = App\Models\Payment::whereIn('paid_status',['full_due','partial_paid'])->get();
+                                $totalDueAmount = $allData->sum('due_amount');
 
+                                @endphp
+                                <p class="text-truncate font-size-22 mb-2">إجمالي الديون</p>
+
+                                <h4 class="mb-2">{{ $totalDueAmount}}</h4>
+                            </div>
+                            <div class="avatar-sm">
+                                <a href="{{ route('credit.customer.pdf') }}" class="avatar-title bg-light text-primary rounded-3">
+                                    <i class="mdi mdi-currency-usd font-size-24" style="color: rgb(88, 201, 88);"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div><!-- end cardbody -->
+                </div><!-- end card -->
+            </div><!-- end col -->
         </div><!-- end row -->
 
 
@@ -153,13 +176,51 @@
                                     @foreach($allData as $item)
                                     <tr>
                                         <td>
-                                            <h6 class="mb-0">{{( $item['payment']['customer']['name'] )}}</h6>
+                                            <h6 class="mb-0"> {{ $item['payment']['customer']['name'] ?? 'N/A' }}
+                                            </h6>
                                         </td>
                                         <td>#{{( $item->invoice_no )}}</td>
                                         <td>{{ date('d-m-Y',strtotime($item->date)) }}</td>
                                         <td>{{( $item->description )}}</td>
 
-                                        <td>$ {{( $item['payment']['total_amount'] )}}</td>
+                                        <td>ILS {{( $item['payment']['total_amount'] ?? 'N/A')}}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table> <!-- end table -->
+                        </div>
+                    </div><!-- end card -->
+                </div><!-- end card -->
+            </div>
+            <!-- end col -->
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title mb-4">كل المنتجات في المخزن</h4>
+
+                        <div class="table-responsive">
+                            <table class="table table-centered mb-0 align-middle table-hover table-nowrap">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>اسم المنتج</th>
+                                        <th> الكمية</th>
+
+                                    </tr>
+                                </thead><!-- end thead -->
+                                <tbody>
+                                    @php
+                                    $allData = App\Models\Product::orderBy('category_id','asc')->get();
+                                    @endphp
+                                    @foreach($allData as $item)
+                                    <tr>
+
+                                        <td>{{( $item->name )}}</td>
+                                        <td>{{( $item->quantity )}}</td>
+
+
                                     </tr>
                                     @endforeach
                                 </tbody>

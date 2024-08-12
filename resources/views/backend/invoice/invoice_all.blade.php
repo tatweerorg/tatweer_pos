@@ -43,12 +43,12 @@
                                 @foreach($allData as $key =>$item)
                                 <tr>
                                     <td>{{( $key+1 )}}</td>
-                                    <td>{{( $item['payment']['customer']['name'] )}}</td>
+                                    <td>{{( $item['payment']['customer']['name'] ?? 'N/A' )}}</td>
                                     <td>#{{( $item->invoice_no )}}</td>
                                     <td>{{ date('d-m-Y',strtotime($item->date)) }}</td>
                                     <td>{{( $item->description )}}</td>
 
-                                    <td>$ {{( $item['payment']['total_amount'] )}}</td>
+                                    <td>$ {{( $item['payment']['total_amount'] ?? 'N/A' )}}</td>
                                     <td>
 
                                         <a href="{{route('invoice.deleteafterapprove', $item->invoice_no)}}" class="btn btn-danger sm" title="Delete Data" id="delete"><i class="fas fa-trash"></i></a>

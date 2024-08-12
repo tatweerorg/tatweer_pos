@@ -4,366 +4,350 @@
 
 <div class="page-content">
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <h4 class="card-title">اضافة فاتورة</h4><br><br>
 
-                        <h4 class="card-title">اضافة فاتورة </h4><br><br>
-
+                        <!-- الفئات -->
                         <div class="row">
+                            <div class="col-md-7">
+                                <h2>الفئات</h2>
+                                <div class="row">
+                                    @foreach($category as $cat)
+                                    <div class="col-md-3 mb-4">
+                                        <div class="card cat-card" style="cursor: pointer;" onclick="showCategoryProducts({{$cat->id}})">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title">{{ $cat->name }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
 
-                            <div class="col-md-1">
-                                <div class="md-3">
-                                    <label for="example-text-input" class="form-label">رقم الفاتورة</label>
-                                    <input class="form-control example-date-input" name="invoice_no" type="text" value="{{ $invoice_no }}" id="invoice_no" readonly style="background-color:#ddd">
+                        <!-- المنتجات المتاحة -->
+                        <div class="row">
+                            <h2>المنتجات</h2>
+                            <div class="col-md-6">
+                                <div class="row" id="products-list">
+                                    @foreach($products as $product)
+                                    <div class="col-md-3 mb-4 product-item" data-category-id="{{ $product->category_id }}">
+                                        <div class="card product-card" style="cursor: pointer;" onclick="addToInvoice({{ $product->id }}, '{{ $product->name }}', '{{ $product->category_id }}')">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title">{{ $product->name }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
 
-                            <div class="col-md-2">
-                                <div class="md-3">
-                                    <label for="example-text-input" class="form-label">التاريخ</label>
-                                    <input class="form-control example-date-input" value="{{ $date }}" name="date" type="date" id="date">
-                                </div>
+                            <!-- قسم الفاتورة -->
+                            <div class="col-md-6">
+                                <form method="post" action="{{ route('invoice.store') }}">
+                                    @csrf
+                                    <div class="invoice-details">
+                                        <h5>فاتورة</h5>
+                                        <!-- رقم الفاتورة والتاريخ -->
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="md-3">
+                                                    <label for="invoice_no" class="form-label">رقم الفاتورة</label>
+                                                    <input class="form-control" name="invoice_no" type="text" value="{{ $invoice_no }}" id="invoice_no" readonly style="background-color:#ddd">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="md-3">
+                                                    <label for="date" class="form-label">التاريخ</label>
+                                                    <input class="form-control" value="{{ $date }}" name="date" type="date" id="date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>المنتج</th>
+                                                    <th>الكمية</th>
+                                                    <th>السعر</th>
+                                                    <th>إجمالي</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="addRow">
+                                                <!-- المنتجات المضافة للفاتورة ستظهر هنا -->
+                                            </tbody>
+                                        </table>
+
+                                        <div class="">
+                                            <div class="form-group">
+                                                <label>الخصم</label>
+                                                <input type="text" name="discount_amount" id="discount_amount" class="form-control" placeholder="مبلغ الخصم">
+                                            </div>
+                                        </div>
+
+                                        <div class="">
+                                            <div class="invoice-summary p-3 bg-light border border-primary rounded">
+                                                <h4 class="text-primary mb-3">ملخص الفاتورة</h4>
+                                                <h3 class="d-flex justify-content-between align-items-center">
+                                                    <span>الإجمالي:</span>
+                                                    <span name="estimated_amount" id="estimated_amount" class="badge bg-primary p-2 fs-4 ">0</span>
+                                                    <span class="fs-5">ILS</span>
+                                                </h3>
+                                            </div>
+                                        </div>
+
+
+                                        <br>
+                                        <div class="row">
+                                            <div class="form-group col-md-3">
+                                                <label>حالة الدفع</label>
+                                                <select name="paid_status" id="paid_status" class="form-select">
+                                                    <option value="">اختر الحالة</option>
+                                                    <option value="full_paid">مدفوع كامل</option>
+                                                    <option value="full_due">دين كامل</option>
+                                                    <option value="partial_paid">دفع جزئي</option>
+                                                </select>
+                                                <input type="text" name="paid_amount" class="form-control paid_amount" placeholder="اكتب المبلغ المدفوع" style="display:none;">
+                                            </div>
+
+                                            <div class="form-group col-md-9">
+                                                <label>اسم الزبون</label>
+                                                <select name="customer_id" id="customer_id" class="form-select">
+                                                    <option value="">اختر الزبون</option>
+                                                    @foreach($customer as $cust)
+                                                    <option value="{{ $cust->id }}">{{ $cust->name }} - {{ $cust->mobile_no }}</option>
+                                                    @endforeach
+                                                    <option value="0">زبون جديد</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Hide Add Customer Form -->
+                                        <div class="row new_customer" style="display:none">
+                                            <div class="form-group col-md-4">
+                                                <input type="text" name="name" id="name" class="form-control" placeholder="اكتب اسم الزبون">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <input type="text" name="mobile_no" id="mobile_no" class="form-control" placeholder="رقم هاتف الزبون">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <input type="email" name="email" id="email" class="form-control" placeholder="ايميل الزبون">
+                                            </div>
+                                        </div>
+
+                                        <br>
+                                        <input type="hidden" name="estimated_amount" id="estimated_amount_input" value="0">
+                                        <div class="text-end">
+
+                                            <button type="submit" class="btn btn-primary" id="storeButton">دفع</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-
-
-                            <div class="col-md-3">
-                                <div class="md-3">
-                                    <label for="example-text-input" class="form-label">اسم الفئة</label>
-                                    <select name="category_id" id="category_id" class="form-select select2" aria-label="Default select example">
-                                        <option selected="">اختر الفئة</option>
-                                        @foreach($category as $cat)
-                                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-3">
-                                <div class="md-3">
-                                    <label for="example-text-input" class="form-label">اسم المنتج </label>
-                                    <select name="product_id" id="product_id" class="form-select select2" aria-label="Default select example">
-                                        <option selected="">اختر المنتج</option>
-
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-1">
-                                <div class="md-3">
-                                    <label for="example-text-input" class="form-label">المخزون </label>
-                                    <input class="form-control example-date-input" name="current_stock_qty" type="text" id="current_stock_qty" readonly style="background-color:#ddd">
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-2">
-                                <div class="md-3">
-                                    <label for="example-text-input" class="form-label" style="margin-top:43px;"> </label>
-
-
-                                    <i class="btn btn-secondary waves-effect waves-light fas fa-plus-circle addeventmore"> <span style="font-family: sans-serif; font-weight: normal;"> اضافة اخرى</span></i>
-                                </div>
-                            </div>
-                        </div> <!-- end row  -->
-                    </div> <!-- End card-body -->
-
-
-                    <div class="card-body">
-                        <form method="post" action="{{ route('invoice.store') }}">
-                            @csrf
-                            <table class="table-sm table-bordered" width="100%" style="border-color: #ddd;">
-                                <thead>
-                                    <tr>
-                                        <th>الفئة</th>
-                                        <th>اسم النتاج </th>
-                                        <th width="7%">الكمية</th>
-                                        <th width="10%">سعر الوحدة</th>
-                                        <th width="15%">المبلغ</th>
-                                        <th width="7%">العمليات</th>
-
-                                    </tr>
-                                </thead>
-
-                                <tbody id="addRow" class="addRow">
-
-                                </tbody>
-
-                                <tbody>
-                                    <tr>
-                                        <td colspan="4"> الخصم</td>
-                                        <td>
-                                            <input type="text" name="discount_amount" id="discount_amount" class="form-control estimated_amount" placeholder="مبلغ الخصم">
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td colspan="4">المبلغ الاجمالي</td>
-                                        <td>
-                                            <input type="text" name="estimated_amount" value="0" id="estimated_amount" class="form-control estimated_amount" readonly style="background-color: #ddd;">
-                                        </td>
-                                        <td></td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                            <br>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <textarea name="description" class="form-control" id="description" placeholder="اكتب الملاحظات هنا"></textarea>
-                                </div>
-                            </div><br>
-
-                            <div class="row">
-                                <div class="form-group col-md-3">
-                                    <label> حالة الدفع</label>
-                                    <select name="paid_status" id="paid_status" class="form-select">
-                                        <option value="">اختر الحالة </option>
-                                        <option value="full_paid">مدفوع كامل </option>
-                                        <option value="full_due">دين كامل </option>
-                                        <option value="partial_paid">دفع جزئي</option>
-                                    </select>
-                                    <input type="text" name="paid_amount" class="form-control paid_amount" placeholder="اكتب المبلغ المدفوع" style="display:none;">
-                                </div>
-
-                                <div class="form-group col-md-9">
-                                    <label> اسم الزبون </label>
-                                    <select name="customer_id" id="customer_id" class="form-select">
-                                        <option value="">اختر الزبون </option>
-                                        @foreach($customer as $cust)
-                                        <option value="{{ $cust->id }}">{{ $cust->name }} - {{ $cust->mobile_no }} </option>
-                                        @endforeach
-                                        <option value="0">زبون جديد </option>
-                                    </select>
-                                </div>
-                            </div> <!-- // end row -->
-
-                            <br>
-
-                            <!-- Hide Add Customer Form -->
-                            <div class="row new_customer" style="display:none">
-                                <div class="form-group col-md-4">
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="اكتب اسم الزبون">
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <input type="text" name="mobile_no" id="mobile_no" class="form-control" placeholder="رقم هاتف الزبون">
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="ايميل الزبون">
-                                </div>
-                            </div>
-                            <!-- End Hide Add Customer Form -->
-
-                            <br>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-info" id="storeButton">اضافة الفاتورة</button>
-
-                            </div>
-
-                        </form>
-
+                        </div>
                     </div> <!-- End card-body -->
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 
-            {{-- JS for dynamic Tablble --}}
-            <script id="document-template" type="text/x-handlebars-template">
-
-                <tr class="delete_add_more_item" id="delete_add_more_item">
-            <input type="hidden" name="date" value="@{{date}}">
-            <input type="hidden" name="invoice_no" value="@{{invoice_no}}">
-
-        <td>
+<script id="document-template" type="text/x-handlebars-template">
+    <tr class="delete_add_more_item" id="delete_add_more_item">
+        <input type="hidden" name="date" value="@{{date}}">
+        <input type="hidden" name="invoice_no" value="@{{invoice_no}}">
             <input type="hidden" name="category_id[]" value="@{{category_id}}">
-            @{{ category_name }}
-        </td>
-
         <td>
             <input type="hidden" name="product_id[]" value="@{{product_id}}">
             @{{ product_name }}
         </td>
-
         <td>
-            <input type="number" min="1" step="0.01" class="form-control selling_qty text-right" name="selling_qty[]" value="" required>
+            <input type="number" min="1" step="0.01" class="form-control selling_qty text-right" name="selling_qty[]" value="1" required>
         </td>
-
         <td>
             <input type="number" step="0.01" class="form-control unit_price text-right" name="unit_price[]" value="" required>
         </td>
-
         <td>
             <input type="number" step="0.01" class="form-control selling_price text-right" name="selling_price[]" value="0" readonly>
         </td>
-
         <td>
             <i class="btn btn-danger btn-sm fas fa-window-close removeeventmore"></i>
         </td>
-
     </tr>
-
 </script>
 
+<script>
+    var selectedCategoryName = '';
 
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $(document).on("click", ".addeventmore", function() {
-                        var date = $('#date').val();
-                        var invoice_no = $('#invoice_no').val();
-                        var category_id = $('#category_id').val();
-                        var category_name = $('#category_id').find('option:selected').text();
-                        var product_id = $('#product_id').val();
-                        var product_name = $('#product_id').find('option:selected').text();
+    function showCategoryProducts(categoryId) {
+        var products = document.querySelectorAll('.product-item');
+        products.forEach(function(product) {
+            if (product.getAttribute('data-category-id') == categoryId) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
 
-                        // validation
-                        if (date == '') {
-                            $.notify("Date is Required", {
-                                globalPosition: 'top right',
-                                className: 'error'
-                            });
-                            return false;
-                        }
+        // Store the selected category name
+        selectedCategoryName = document.querySelector('.cat-card[onclick*="' + categoryId + '"]').getAttribute('data-category-name');
+    }
 
-                        if (category_id == '') {
-                            $.notify("Category is Required", {
-                                globalPosition: 'top right',
-                                className: 'error'
-                            });
-                            return false;
-                        }
-                        if (product_id == '') {
-                            $.notify("Product Field is Required", {
-                                globalPosition: 'top right',
-                                className: 'error'
-                            });
-                            return false;
-                        }
+    // Initially, show products for the first category (if needed)
+    document.addEventListener('DOMContentLoaded', function() {
+        var firstCategory = document.querySelector('.cat-card');
+        if (firstCategory) {
+            firstCategory.click();
+        }
+    });
 
+    function addToInvoice(productId, productName, categoryId) {
+        var date = $('#date').val();
+        var invoice_no = $('#invoice_no').val();
 
-                        var source = $("#document-template").html();
-                        var tamplate = Handlebars.compile(source);
-                        var data = {
-                            date: date,
-                            invoice_no: invoice_no,
-                            category_id: category_id,
-                            category_name: category_name,
-                            product_id: product_id,
-                            product_name: product_name
+        if (date == '') {
+            $.notify("Date is Required", {
+                globalPosition: 'top right',
+                className: 'error'
+            });
+            return false;
+        }
 
-                        };
-                        var html = tamplate(data);
-                        $("#addRow").append(html);
-                    });
+        var productExists = false;
 
-                    $(document).on("click", ".removeeventmore", function(event) {
-                        $(this).closest(".delete_add_more_item").remove();
-                        totalAmountPrice();
-                    });
+        // Check if the product already exists in the invoice
+        $('#addRow tr').each(function() {
+            var existingProductId = $(this).find('input[name="product_id[]"]').val();
+            if (existingProductId == productId) {
+                productExists = true;
 
-                    $(document).on('keyup click', '.unit_price,.selling_qty', function() {
-                        var unit_price = $(this).closest("tr").find("input.unit_price").val();
-                        var qty = $(this).closest("tr").find("input.selling_qty").val();
-                        var total = unit_price * qty;
-                        $(this).closest("tr").find("input.selling_price").val(total);
-                        $('#discount_amount').trigger('keyup');
-                    });
+                // Increase the quantity if the product is already in the invoice
+                var qtyField = $(this).find('input[name="selling_qty[]"]');
+                var currentQty = parseInt(qtyField.val());
+                qtyField.val(currentQty + 1);
 
-                    $(document).on('keyup', '#discount_amount', function() {
-                        totalAmountPrice();
-                    });
+                // Update the total for this product
+                var unitPriceField = $(this).find('input[name="unit_price[]"]');
+                var sellingPriceField = $(this).find('input[name="selling_price[]"]');
+                var unitPrice = parseFloat(unitPriceField.val());
+                sellingPriceField.val((currentQty + 1) * unitPrice);
 
-                    // Calculate sum of amount in invoice
+                // Recalculate the total invoice amount
+                calculateTotal();
+            }
+        });
 
-                    function totalAmountPrice() {
-                        var sum = 0;
-                        $(".selling_price").each(function() {
-                            var value = $(this).val();
-                            if (!isNaN(value) && value.length != 0) {
-                                sum += parseFloat(value);
-                            }
-                        });
-
-                        // discount calculation
-                        var discount_amount = parseFloat($('#discount_amount').val());
-                        if (!isNaN(discount_amount) && discount_amount.length != 0) {
-                            sum -= parseFloat(discount_amount);
-                        }
-
-                        $('#estimated_amount').val(sum);
-                    }
-
-                });
-            </script>
-
-            <!-- Product Name Js -->
-            <script type="text/javascript">
-                $(function() {
-                    $(document).on('change', '#category_id', function() {
-                        var category_id = $(this).val();
-                        $.ajax({
-                            url: "{{ route('get-product') }}",
-                            type: "GET",
-                            data: {
-                                category_id: category_id
-                            },
-                            success: function(data) {
-                                var html = '<option value="">Select Category</option>';
-                                $.each(data, function(key, v) {
-                                    html += '<option value=" ' + v.id + ' "> ' + v.name + '</option>';
-                                });
-                                $('#product_id').html(html);
-                            }
-                        })
-                    });
-                });
-            </script>
-
-            <!-- Stock amount Js -->
-            <script type="text/javascript">
-                $(function() {
-                    $(document).on('change', '#product_id', function() {
-                        var product_id = $(this).val();
-                        $.ajax({
-                            url: "{{ route('check-product-stock') }}",
-                            type: "GET",
-                            data: {
-                                product_id: product_id
-                            },
-                            success: function(data) {
-                                $('#current_stock_qty').val(data);
-                            }
-                        });
-                    });
-                });
-            </script>
+        // If the product doesn't exist, add it as a new item in the invoice
+        if (!productExists) {
+            var source = $("#document-template").html();
+            var template = Handlebars.compile(source);
+            var data = {
+                date: date,
+                invoice_no: invoice_no,
+                category_id: categoryId,
+                category_name: selectedCategoryName, // Use the stored category name
+                product_id: productId,
+                product_name: productName,
+                product_qty: 1, // Start with a quantity of 1
+                product_price: 0 // Assuming you handle price elsewhere, set a default value
+            };
+            var html = template(data);
+            $("#addRow").append(html);
+            calculateTotal();
+        }
+    }
 
 
-            <script type="text/javascript">
-                // Paid amount For Partial Pay
-                $(document).on('change', '#paid_status', function() {
-                    var paid_status = $(this).val();
-                    if (paid_status == 'partial_paid') {
-                        $('.paid_amount').show();
-                    } else {
-                        $('.paid_amount').hide();
-                    }
-                });
+    $(document).on("click", ".removeeventmore", function(event) {
+        $(this).closest(".delete_add_more_item").remove();
+        calculateTotal();
+    });
 
-                // New Customer View js
-                $(document).on('change', '#customer_id', function() {
-                    var customer_id = $(this).val();
-                    if (customer_id == '0') {
-                        $('.new_customer').show();
-                    } else {
-                        $('.new_customer').hide();
-                    }
-                });
-            </script>
+    $(document).on('keyup change', '.unit_price, .selling_qty', function() {
+        var unit_price = $(this).closest("tr").find("input.unit_price").val();
+        var qty = $(this).closest("tr").find("input.selling_qty").val();
+        var total = unit_price * qty;
+        $(this).closest("tr").find("input.selling_price").val(total);
+        calculateTotal();
+    });
 
-            @endsection
+    $(document).on('keyup', '#discount_amount', function() {
+        calculateTotal();
+    });
+
+    function calculateTotal() {
+        var sum = 0;
+        $(".selling_price").each(function() {
+            var value = $(this).val();
+            if (!isNaN(value) && value.length != 0) {
+                sum += parseFloat(value);
+            }
+        });
+
+        var discount_amount = parseFloat($('#discount_amount').val()) || 0;
+        sum -= discount_amount;
+
+        $('#estimated_amount').text(sum.toFixed(2));
+        $('#estimated_amount_input').val(sum.toFixed(2)); // Update hidden input
+
+    }
+
+    // Paid amount For Partial Pay
+    $(document).on('change', '#paid_status', function() {
+        var paid_status = $(this).val();
+        if (paid_status == 'partial_paid') {
+            $('.paid_amount').show();
+        } else {
+            $('.paid_amount').hide();
+        }
+    });
+
+    // New Customer View js
+    $(document).on('change', '#customer_id', function() {
+        var customer_id = $(this).val();
+        if (customer_id == '0') {
+            $('.new_customer').show();
+        } else {
+            $('.new_customer').hide();
+        }
+    });
+</script>
+
+<style>
+    .product-card {
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 8px;
+        transition: box-shadow 0.3s;
+    }
+
+    .cat-card {
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 8px;
+        transition: box-shadow 0.3s;
+    }
+
+    .product-card:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .invoice-details {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .invoice-summary {
+        margin-top: 15px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
+
+@endsection
