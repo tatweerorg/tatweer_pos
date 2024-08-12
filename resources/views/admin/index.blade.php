@@ -126,7 +126,7 @@
                 </div><!-- end card -->
             </div><!-- end col -->
             <div class="col-xl-2  col-md-6">
-                <div class="card" >
+                <div class="card">
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="flex-grow-1">
@@ -206,23 +206,29 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>اسم المنتج</th>
-                                        <th> الكمية</th>
+                                        <th> الكمية التي تم بيعها</th>
+                                        <th> الكمية في المخزن</th>
+
 
                                     </tr>
                                 </thead><!-- end thead -->
                                 <tbody>
                                     @php
-                                    $allData = App\Models\Product::orderBy('category_id','asc')->get();
+                                    $allData = App\Models\Product::orderBy('category_id', 'asc')->get();
                                     @endphp
+
                                     @foreach($allData as $item)
+                                    @php
+                                    $selling_total = App\Models\InvoiceDetail::where('product_id', $item->id)->where('status', '1')->sum('selling_qty');
+                                    @endphp
+
                                     <tr>
-
-                                        <td>{{( $item->name )}}</td>
-                                        <td>{{( $item->quantity )}}</td>
-
-
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $selling_total }}</td>
+                                        <td>{{ $item->quantity }}</td>
                                     </tr>
                                     @endforeach
+
                                 </tbody>
                             </table> <!-- end table -->
                         </div>
