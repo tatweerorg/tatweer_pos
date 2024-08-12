@@ -30,6 +30,8 @@
                                     <th>#</th>
                                     <th>اسم الموظف</th>
                                     <th>التاريخ</th>
+                                    <th>وقت الوصول</th>
+                                    <th>وقت المغادرة</th>
                                     <th>الحالة</th>
                                 </tr>
                             </thead>
@@ -40,6 +42,8 @@
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $attendance->employee->name }}</td>
                                     <td>{{ $attendance->date }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($attendance->arrival_time)->format('h:i A') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($attendance->departure_time)->format('h:i A') }}</td>
                                     <td>{{ ucfirst($attendance->status) }}</td>
                                 </tr>
                                 @endforeach

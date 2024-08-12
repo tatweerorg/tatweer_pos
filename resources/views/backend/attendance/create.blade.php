@@ -42,7 +42,18 @@
                                     <input type="date" name="date" class="form-control" required>
                                 </div>
                             </div>
-
+                            <div class="mb-3 row">
+                                <label for="arrival_time" class="col-sm-2 col-form-label">وقت الوصول</label>
+                                <div class="col-sm-10">
+                                    <input type="time" name="arrival_time" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="departure_time" class="col-sm-2 col-form-label">وقت المغادرة</label>
+                                <div class="col-sm-10">
+                                    <input type="time" name="departure_time" class="form-control" >
+                                </div>
+                            </div>
                             <div class="mb-3 row">
                                 <label for="status" class="col-sm-2 col-form-label">الحالة</label>
                                 <div class="col-sm-10">
