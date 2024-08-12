@@ -31,9 +31,9 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <address>
-                                            <strong>Tatweer.</strong><br>
-                                            Nuba , Hebron<br>
-                                            +970 568096370
+                                            نوبا و الخليل<br>
+                                            حسن الطرمان :0568190719<br>
+                                            تحسين الطرمان :0595109779
                                         </address>
                                     </div>
                                     <div class="col-6 mt-4 text-end">
@@ -83,7 +83,7 @@
                                                     <th>الكمية</th>
                                                     <th>سعر الوحدة</th>
                                                     <th>المبلغ الاجمالي</th>
-                                                   
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -110,11 +110,11 @@
                                                     <td colspan="3" class="text-end">₪{{ $invoice_total }}</td>
                                                 </tr>
                                                 <tr>
-                                                 <td colspan="6" class="text-center">حالة الدفع</td>
+                                                    <td colspan="6" class="text-center">حالة الدفع</td>
                                                     <td colspan="3" class="text-end"> {{ $payment ? $payment->paid_status : 'N/A' }}</td>
                                                 </tr>
-<tr>
-                                                 <td colspan="6" class="text-center"> المبلغ المتبقي</td>
+                                                <tr>
+                                                    <td colspan="6" class="text-center"> المبلغ المتبقي</td>
                                                     <td colspan="3" class="text-end"> {{ $payment ? $payment->due_amount : 'N/A' }}</td>
                                                 </tr>
                                             </tbody>

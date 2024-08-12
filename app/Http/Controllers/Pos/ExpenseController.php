@@ -112,8 +112,43 @@ class ExpenseController extends Controller
     }
     public function edit($id)
     {
-        return view('backend.expense.edit');
+        $expense = Expense::findOrFail($id);
+        $categories = ExpenseCategory::all(); // جلب جميع الفئات لإظهارها في القائمة المنسدلة
+        return view('backend.expense.edit', compact('expense', 'categories'));    }
+
+    public function update(Request $request, $id)
+    {
+        // التحقق من صحة البيانات المدخلة
+      /*   $request->validate([
+            'name' => 'required|string|max:255',
+            'date' => 'required|date',
+            'amount' => 'required|numeric',
+            'category_id' => 'required|integer|exists:expense_categories,id',
+            'notes' => 'nullable|string',
+        ]); */
+
+        // جلب المصروف المراد تعديله
+        $expense = Expense::findOrFail($id);
+
+        // تحديث بيانات المصروف
+        $expense->update([
+            'name' => $request->name,
+            'date' => $request->date,
+            'amount' => $request->amount,
+            'detials' => $request->detials,
+            'category_id' => $request->category_id,
+        ]);
+
+        // إعداد رسالة النجاح
+        $notification = array(
+            'message' => 'Expense Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        // إعادة التوجيه مع رسالة النجاح
+        return redirect()->route('expense.all')->with($notification);
     }
+
 
     public function editcategory($id){
         $category = ExpenseCategory::findOrFail($id);
@@ -153,6 +188,24 @@ class ExpenseController extends Controller
     /**
      * Display the specified resource.
      */
+    public function deleteExpense($id)
+    {
+        // البحث عن المصروف المطلوب باستخدام الـ ID
+        $expense = Expense::findOrFail($id);
+
+        // حذف المصروف
+        $expense->delete();
+
+        // إعداد رسالة النجاح
+        $notification = array(
+            'message' => 'Expense Deleted Successfully',
+            'alert-type' => 'success',
+        );
+
+        // إعادة التوجيه إلى صفحة المصاريف مع عرض رسالة النجاح
+        return redirect()->route('expense.all')->with($notification);
+    }
+
     public function show(Expense $expense)
     {
         //
@@ -166,10 +219,7 @@ class ExpenseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Expense $expense)
-    {
-        //
-    }
+  
 
     /**
      * Remove the specified resource from storage.

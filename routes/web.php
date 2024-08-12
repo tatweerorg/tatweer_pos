@@ -326,9 +326,9 @@ Route::middleware('auth')->group(function(){
         Route::get('/expense/deletecategory/{id}','deletecategory')->name('expense.deletecategory');
 
         Route::post('/expense/store', 'store')->name('expense.store');
-        Route::get('/expense/edit', 'edit')->name('expense.edit');
-        Route::get('/expense/delete', 'destroy')->name('expense.delete');
-
+        Route::get('/expense/edit/{id}', 'edit')->name('expense.edit');
+        Route::get('/expense/delete/{id}', 'deleteExpense')->name('expense.delete');
+        Route::post('/expense/update/{id}', [ExpenseController::class, 'update'])->name('expense.update'); // توجيه لحفظ التعديلات
 
         Route::post('/expense/createcategory', 'storecategory')->name('expense.storecategory');
         Route::post('/expense/updatecategory/{id}', 'updatecategory')->name('expense.updatecategory');

@@ -32,9 +32,9 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <address>
-                                            <strong>Tatweer.</strong><br>
-                                            Nuba , Hebron<br>
-                                            +970 568096370
+                                            نوبا و الخليل<br>
+                                            حسن الطرمان :0568190719<br>
+                                            تحسين الطرمان :0595109779
                                         </address>
                                     </div>
                                     <div class="col-6 mt-4 text-end">
@@ -69,9 +69,9 @@
                                                 <thead>
                                                     <tr>
                                                         <td><strong>Sl </strong></td>
-     
+
                                                         <td class="text-center"><strong>اسم المصروف</strong></td>
-                                                     
+
                                                         <td class="text-center"><strong>التاريخ</strong>
                                                         </td>
                                                         <td class="text-center"><strong>الملاحظات</strong>

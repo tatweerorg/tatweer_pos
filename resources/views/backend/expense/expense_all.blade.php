@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">جميع الفواتير</h4>
+                    <h4 class="mb-sm-0">جميع المصاريف</h4>
                 </div>
             </div>
         </div>
@@ -47,9 +47,9 @@
                                     <td>{{$item->amount }}</td>
                                     <td>{{ $item->category ? $item->category->name : 'N/A' }}</td>
                                     <td>
-                                        <a href="" class="btn btn-info sm" title="Edit Data"><i class="fas fa-edit"></i></a>
+                                        <a href=" {{ route('expense.edit', $item->id) }}" class="btn btn-info sm" title="Edit Data"><i class="fas fa-edit"></i></a>
 
-                                        <a href="" class="btn btn-danger sm" title="Delete Data" id="delete"><i class="fas fa-trash"></i></a>
+                                        <a href=" {{ route('expense.delete', $item->id) }}" class="btn btn-danger sm" title="Delete Data" id="delete"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -47,7 +47,7 @@ dd('No authenticated user.');
         </div>
 
         <div class="d-flex">
-            <div class="dropdown d-none d-lg-inline-block ms-1">
+            <div class="dropdown  d-lg-inline-block ms-1">
                 <a href="{{route('invoice.add')}}">
                     <button type="button" class="btn header-item noti-icon waves-effect">
 

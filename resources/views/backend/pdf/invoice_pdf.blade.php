@@ -26,16 +26,16 @@
                                     <h4 class="float-end font-size-16"><strong>رقم الفاتورة # {{ $invoice->invoice_no }}</strong></h4>
                                     <h3>
                                         <!-- <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo" height="100" /> -->
-                                         فحم الزين
+                                        فحم الزين
                                     </h3>
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-6">
                                         <address>
-                                            <strong>Tatweer.</strong><br>
-                                            Nuba , Hebron<br>
-                                            +970 568096370
+                                            نوبا و الخليل<br>
+                                            حسن الطرمان :0568190719<br>
+                                            تحسين الطرمان :0595109779
                                         </address>
                                     </div>
                                     <div class="col-6 mt-4 text-end">

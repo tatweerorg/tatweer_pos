@@ -1,6 +1,14 @@
 @extends('admin.admin_master')
 @section('admin')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- CSS for Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- jQuery (إذا لم تكن مضمنة بالفعل) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<!-- JS for Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <div class="page-content">
     <div class="container-fluid">
@@ -116,14 +124,15 @@
 
                                             <div class="form-group col-md-9">
                                                 <label>اسم الزبون</label>
-                                                <select name="customer_id" id="customer_id" class="form-select">
+                                                <select name="customer_id" id="customer_id" class="form-select select2">
                                                     <option value="">اختر الزبون</option>
                                                     @foreach($customer as $cust)
-                                                    <option value="{{ $cust->id }}">{{ $cust->name }} - {{ $cust->mobile_no }}</option>
+                                                    <option value="{{ $cust->id }}">{{ $cust->name }} </option>
                                                     @endforeach
                                                     <option value="0">زبون جديد</option>
                                                 </select>
                                             </div>
+
                                         </div>
 
                                         <!-- Hide Add Customer Form -->
@@ -155,6 +164,15 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Initialize Select2 on the specified select element
+        $('#customer_id').select2({
+            placeholder: "اختر الزبون", // Placeholder text
+            allowClear: true // Allow the option to clear the selection
+        });
+    });
+</script>
 
 <script id="document-template" type="text/x-handlebars-template">
     <tr class="delete_add_more_item" id="delete_add_more_item">
