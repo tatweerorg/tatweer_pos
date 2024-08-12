@@ -315,6 +315,8 @@ Route::middleware('auth')->group(function(){
 
         Route::get('/supplier/wise/pdf','SupplierWisePdf')->name('supplier.wise.pdf');
         Route::get('/product/wise/pdf','ProductWisePdf')->name('product.wise.pdf');
+        Route::post('/stock/update/{id}','updateStockQuantity')->name('stock.update');
+        Route::post('/stock/zero/{id}','zeroStockQuantity')->name('stock.zero');
     });
 
     // expense All route

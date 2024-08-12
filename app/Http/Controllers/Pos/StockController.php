@@ -50,7 +50,26 @@ class StockController extends Controller
         $allData = Product::orderBy('category_id','asc')->get();
         return view('backend.stock.stock_report',compact('allData'));
     }
-
+    public function updateStockQuantity(Request $request,$id){
+        $product = Product::findOrFail($id);
+        $product->quantity =$request->input('quantity');
+        $product->save();
+        $notification = array(
+            'message' => 'تم تحديث كمية المنتج بنجاح',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function zeroStockQuantity($id){
+        $product = Product::findOrFail($id);
+        $product->quantity = 0.0;
+        $product->save();
+        $notification = array(
+            'message' => 'تم تصفير كمية المنتج بنجاح',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
     public function StockReportPdf(){
         $allData = Product::orderBy('category_id','asc')->get();
         return view('backend.pdf.stock_report_pdf',compact('allData'));
