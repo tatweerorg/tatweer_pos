@@ -40,21 +40,17 @@
                                     <td>{{ $detail->salarypaid_value}}</td>
                                     <td>{{ $detail->salaryremaning_value}}</td>
                                     <td>
-                                    <form action="{{ route('salary-details.updateStatus', $detail->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <select name="salary_status" id="salary_status_{{ $detail->id }}" class="form-select" onchange="togglePartialSalaryInput({{ $detail->id }})">
-            <option value="unPaid" {{ $detail->salary_status == 'unPaid' ? 'selected' : '' }}>لم يتم دفعه</option>
-            <option value="Paid" {{ $detail->salary_status == 'Paid' ? 'selected' : '' }}>مدفوع بالكامل</option>
-            <option value="Partial" {{ $detail->salary_status == 'Partial' ? 'selected' : '' }}>جزئي</option>
-            <option value="Delayed" {{ $detail->salary_status == 'Delayed' ? 'selected' : '' }}>مؤجل</option>
-        </select>
+                                  <form action="{{ route('salary-details.updateStatus', $detail->id) }}" method="POST">
+    @csrf
+    @method('PUT')
+    <select name="salary_status" class="form-select" onchange="this.form.submit()">
+        <option value='unPaid' {{ $detail->salary_status == 'unPaid' ? 'selected' : '' }}>لم يتم دفعه</option>
+        <option value="Paid" {{ $detail->salary_status == 'Paid' ? 'selected' : '' }}>مدفوع بالكامل</option>
+        <option value="Partial" {{ $detail->salary_status == 'Partial' ? 'selected' : '' }}>جزئي</option>
+        <option value="Delayed" {{ $detail->salary_status == 'Delayed' ? 'selected' : '' }}>مؤجل</option>
+    </select>
+</form>
 
-        <!-- حقل إدخال للراتب الجزئي -->
-        <input type="number" name="partial_salary" id="partial_salary_{{ $detail->id }}" class="form-control mt-2" placeholder="أدخل قيمة الراتب الجزئي" style="display: none;" value="{{ $detail->partial_salary ?? '' }}">
-        
-        <button type="submit" class="btn btn-primary mt-2">تحديث</button>
-    </form>
     </td>
                                 </tr>
                                 @endforeach
