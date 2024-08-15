@@ -97,7 +97,7 @@ class EmployeeAttendanceController extends Controller
             $salaryStatus = 'unPaid'; 
             $advance = 0; 
             $salarypaid_value=0;
-            $slaryremaning_value= $salary_value;
+            $slaryremaning_value= 0;
             Salary::create([
                 'employee_id' => $request->employee_id,
                 'month' => $month,

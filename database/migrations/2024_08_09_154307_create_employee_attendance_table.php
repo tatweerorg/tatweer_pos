@@ -9,11 +9,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('employee_attendances', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
+             $table->id();
+            $table->unsignedBigInteger('employee_id');
             $table->date('date');
-            $table->enum('status', ['present', 'absent', 'late', 'excused']);
+            $table->time('arrival_time')->nullable();
+            $table->time('departure_time')->nullable();
+            $table->string('status'); // You might want to limit this to specific statuses like 'present', 'absent', etc.
             $table->timestamps();
+            
+            // Foreign key constraint
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 
