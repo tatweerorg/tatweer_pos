@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('jobtype');
+            $table->date('startdate');
+            $table->string('name');
+            $table->decimal('balance', 10, 2); 
+            $table->enum('worktype', ['hours', 'days', 'months', 'contractor']);
         });
     }
 
