@@ -24,6 +24,9 @@
                                     <th>الشهر</th>
                                     <th>ساعات العمل</th>
                                     <th>السلفة</th>
+                                    <th>الراتب</th>
+                                    <th>المبلغ المدفوع </th>
+                                    <th>المبلغ المتبقي </th>
                                     <th>حالة الراتب</th>
                                 </tr>
                             </thead>
@@ -33,15 +36,26 @@
                                     <td>{{ $detail->month }}</td>
                                     <td>{{ $detail->work_hours }}</td>
                                     <td>{{ $detail->advance }}</td>
+                                    <td>{{ $detail->salary_value}}</td>
+                                    <td>{{ $detail->salarypaid_value}}</td>
+                                    <td>{{ $detail->salaryremaning_value}}</td>
                                     <td>
-                                        @if($detail->salary_status == 'Delayed')
-                                        <span class="text-danger">مؤجل</span>
-                                        @elseif($detail->salary_status == 'Partial')
-                                        <span class="text-warning">جزئي</span>
-                                        @else
-                                        <span class="text-success">مدفوع بالكامل</span>
-                                        @endif
-                                    </td>
+                                    <form action="{{ route('salary-details.updateStatus', $detail->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+        <select name="salary_status" id="salary_status_{{ $detail->id }}" class="form-select" onchange="togglePartialSalaryInput({{ $detail->id }})">
+            <option value="unPaid" {{ $detail->salary_status == 'unPaid' ? 'selected' : '' }}>لم يتم دفعه</option>
+            <option value="Paid" {{ $detail->salary_status == 'Paid' ? 'selected' : '' }}>مدفوع بالكامل</option>
+            <option value="Partial" {{ $detail->salary_status == 'Partial' ? 'selected' : '' }}>جزئي</option>
+            <option value="Delayed" {{ $detail->salary_status == 'Delayed' ? 'selected' : '' }}>مؤجل</option>
+        </select>
+
+        <!-- حقل إدخال للراتب الجزئي -->
+        <input type="number" name="partial_salary" id="partial_salary_{{ $detail->id }}" class="form-control mt-2" placeholder="أدخل قيمة الراتب الجزئي" style="display: none;" value="{{ $detail->partial_salary ?? '' }}">
+        
+        <button type="submit" class="btn btn-primary mt-2">تحديث</button>
+    </form>
+    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -77,4 +91,18 @@
 
     </div>
 </div>
+<script>
+function togglePartialSalaryInput(detailId) {
+    var statusSelect = document.getElementById('salary_status_' + detailId);
+    var partialSalaryInput = document.getElementById('partial_salary_' + detailId);
+
+    if (statusSelect.value === 'Partial') {
+        partialSalaryInput.style.display = 'inline';
+    } else {
+        partialSalaryInput.style.display = 'none';
+        partialSalaryInput.value = '';  // إفراغ الحقل إذا تم تغييره إلى حالة أخرى
+    }
+}
+
+</script>
 @endsection

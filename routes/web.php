@@ -361,6 +361,7 @@ Route::middleware('auth')->group(function(){
 
         Route::post('/employee/update/{id}', [EmployeeController::class, 'update'])->name('employee.update');
 
+        Route::get('/daily/employee/pdf','DailyEmployeePdf')->name('daily.employee.pdf');
 
     });
     Route::controller(SalaryController::class)->group(function () {
@@ -368,6 +369,8 @@ Route::middleware('auth')->group(function(){
 
         Route::get('/employee/salary/{id}', 'show')->name('employee.salarydetails');
         Route::post('/salary-details', 'store')->name('salary-details.store');
+        Route::put('/salary-details/{id}/status',  'updateStatus')->name('salary-details.updateStatus');
+
     });
 
 });

@@ -17,6 +17,9 @@ class Salary extends Model
         'work_hours',
         'advance',
         'salary_status',
+        'salary_value',
+        'salarypaid_value',
+        'salaryremaning_value'
     ];
 
     // تعريف العلاقة مع موديل Employee

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Pos;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
+use App\Models\Salary;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class EmployeeController extends Controller
 {
@@ -35,6 +37,20 @@ class EmployeeController extends Controller
         $employee->startdate = $request->startdate;
         $employee->jobtype = $request->jobtype;
         $employee->save();
+        $startdate=$request->startdate;
+        $Month= Carbon::parse($startdate)->format('m-Y');
+
+        $salary=new Salary();
+        $salary->employee_id = $employee->id;
+        $salary->month = $Month;
+        $salary->work_hours = 0; 
+        $salary->advance = 0; 
+        $salary->salary_value = 0; 
+        $salary->salary_status ='unPaid'; 
+        $salary->salarypaid_value = 0; 
+        $salary->salaryremaning_value = 0; 
+        $salary->save();
+        
 
         return redirect()->route('employee.index')->with('success', 'Employee added successfully');
     }
@@ -99,6 +115,13 @@ class EmployeeController extends Controller
     public function show(Employee $employee)
     {
         //
+    }
+    public function DailyEmployeePdf(Request $request)
+    {
+        $start_date = date('Y-m-d', strtotime($request->start_date));
+        $end_date = date('Y-m-d', strtotime($request->end_date));
+        $allData = Employee::whereBetween('startdate', [$start_date, $end_date])->get();
+        return view('backend.pdf.daily_employee_report_pdf', compact('allData', 'start_date', 'end_date'));
     }
 
   
