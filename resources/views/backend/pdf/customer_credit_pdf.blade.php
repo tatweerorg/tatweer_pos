@@ -77,7 +77,7 @@
                                                         <td class="text-center">{{ $key+1 }}</td>
                                                         <td class="text-center">{{ $item['customer']['name'] }}</td>
                                                         <td class="text-center">#{{ $item['invoice']['invoice_no'] }}</td>
-                                                        <td class="text-center">{{ date('d-m-Y',strtotime($item->date)) }}</td>
+                                                        <td class="text-center">{{( date('d-m-Y',strtotime($item['invoice']['date'])) )}}</td>
                                                         <td class="text-center">{{ $item->due_amount }}</td>
                                                     </tr>
                                                     @php

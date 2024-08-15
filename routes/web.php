@@ -22,6 +22,7 @@ use App\Http\Controllers\Pos\PurchaseController;
 use App\Http\Controllers\Pos\DefaultController;
 use App\Http\Controllers\Pos\ExpenseController;
 use App\Http\Controllers\Pos\InvoiceController;
+use App\Http\Controllers\pos\PartialPaymentController;
 use App\Http\Controllers\pos\SalaryController;
 use App\Http\Controllers\Pos\StockController;
 use App\Models\Employee;
@@ -368,6 +369,13 @@ Route::middleware('auth')->group(function(){
 
         Route::get('/employee/salary/{id}', 'show')->name('employee.salarydetails');
         Route::post('/salary-details', 'store')->name('salary-details.store');
+    });
+    Route::controller(PartialPaymentController::class)->group(function () {
+
+
+        Route::get('/partialpayments/create/{id}', 'create')->name('partialpayments.create');
+        Route::post('/partialpayments', 'store')->name('partialpayments.store');
+
     });
 
 });
