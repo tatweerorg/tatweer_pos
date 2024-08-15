@@ -35,7 +35,7 @@ class EmployeeAttendanceController extends Controller
             'date' => 'required|date',
             'arrival_time' => 'nullable|date_format:H:i',
             'departure_time' => 'nullable|date_format:H:i',
-            'status' => 'required|in:present,absent,late,excused',
+            'status' => 'in:present,absent,late,excused',
         ]);
 
         EmployeeAttendance::create($request->all());
@@ -94,7 +94,7 @@ class EmployeeAttendanceController extends Controller
 
             ]);
         } else {
-            $salaryStatus = ''; 
+            $salaryStatus = 'unPaid'; 
             $advance = 0; 
             $salarypaid_value=0;
             $slaryremaning_value= $salary_value;

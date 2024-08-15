@@ -79,6 +79,7 @@
                                                         <td class="text-center">#{{ $item['invoice']['invoice_no'] }}</td>
                                                         <td class="text-center">{{( date('d-m-Y',strtotime($item['invoice']['date'])) )}}</td>
                                                         <td class="text-center">{{ $item->due_amount }}</td>
+
                                                     </tr>
                                                     @php
                                                     $total_due += $item->due_amount;
