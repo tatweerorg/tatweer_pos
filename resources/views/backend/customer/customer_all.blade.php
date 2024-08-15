@@ -50,6 +50,9 @@
 
                                         <a href="{{route('customer.delete',$item->id)}}" class="btn btn-danger sm" title="Delete Data" id="delete"><i class="fas fa-trash"></i></a>
                                         <a href="{{route('customer.view',$item->id)}}" class="btn btn-primary sm" title="Customer Invoice Details"><i class="fas fa-eye"></i></a>
+                                        <a href="{{route('partialpayments.create',$item->id)}}" class="btn btn-success sm" title="Customer pind Details"><i class="fas fa-plus"></i>
+                                        </a>
+
 
                                     </td>
                                 </tr>
