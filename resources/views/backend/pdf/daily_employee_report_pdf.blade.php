@@ -70,13 +70,14 @@
                                                     <tr>
                                                         <td><strong>Sl </strong></td>
                                                         <td class="text-center"><strong>اسم الموظف</strong></td>
-                                                        <td class="text-center"><strong>رقم الموظف</strong>
-                                                        </td>
+                                                        
                                                         <td class="text-center"><strong>تاريخ بدء العمل</strong>
+                                                        </td>
+                                                        <td class="text-center"><strong>المسمى الوظيفي </strong>
                                                         </td>
                                                         <td class="text-center"><strong>الراتب</strong>
                                                         </td>
-                                                        <td class="text-center"><strong>المسمى الوظيفي </strong>
+                                                        <td class="text-center"><strong>المبلغ المتبقي</strong>
                                                         </td>
                                                     </tr>
                                                 </thead>
@@ -89,13 +90,24 @@
                                                     <tr>
                                                         <td class="text-center">{{ $key+1 }}</td>
                                                         <td class="text-center">{{ $item->name}}</td>
-                                                        <td class="text-center">#{{ $item->id }}</td>
-                                                        <td class="text-center">{{ date('d-m-Y',strtotime($item->startdate)) }}</td>
-                                                        <td class="text-center">{{ $item->balance }} </td>
-                                                        <td class="text-center">{{ $item->jobtype }}</td>
+                                                        <td class="text-center">{{ date('d-m-Y',strtotime($item->startdate)) }} 
+                                                      
+                                                        </td>
+                                                                                                                <td class="text-center">{{ $item->jobtype }}</td>
+
+                                                        <td class="text-center">{{ $item->balance }}
+                                                          @if($item->worktype == 'hours')
+                                                          ₪/ساعة
+                                                        @elseif($item->worktype == 'days')
+                                                    ₪/يوم
+                                                        @elseif($item->worktype == 'months')
+                                                        ₪/شهر
+                                                        @elseif($item->worktype == 'Contractor')
+₪                                                        @endif </td>
+                                                        <td class="text-center">{{ $item->total_remaining_salary }}</td>
                                                     </tr>
                                                     @php
-                                                    $total_sum += $item->balance;
+                                                    $total_sum += $item->total_remaining_salary;
                                                     @endphp
                                                     @endforeach
                                                     <tr>

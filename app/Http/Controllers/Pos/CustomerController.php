@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Pos;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Customer;
-use App\Models\Payment;
-use App\Models\PaymentDetail;
 use Auth;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Image;
+use App\Models\Payment;
+use App\Models\Customer;
+use Illuminate\Http\Request;
+use App\Models\PaymentDetail;
+use App\Models\PartialPayment;
+use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class CustomerController extends Controller
 {
@@ -193,15 +194,21 @@ class CustomerController extends Controller
         return view('backend.pdf.invoice_details_pdf',compact('payment'));
     }
 
-    public function PaidCustomer(){
-        $allData = Payment::where('paid_status','!=','full_due')->get();
-        return view('backend.customer.customer_paid',compact('allData'));
+    public function PaidCustomer() {
+        $allData = Payment::where('paid_status', '!=', 'full_due')
+                          ->with(['Customer', 'paymentDetails']) 
+                          ->get();
+    
+        return view('backend.customer.customer_paid', compact('allData'));
     }
-
-    public function PaidCustomerPrintPdf(){
-        $allData = Payment::where('paid_status','!=','full_due')->get();
-        return view('backend.pdf.customer_paid_pdf',compact('allData'));
+    
+    public function PaidCustomerPrintPdf()
+    {
+        $allData = Customer::with('partialPayments')->get();
+    
+        return view('backend.pdf.customer_paid_pdf', compact('allData'));
     }
+    
 
     public function CustomerWiseReport(){
         $customers = Customer::all();
@@ -216,10 +223,12 @@ class CustomerController extends Controller
         return view('backend.pdf.customer_wise_credit_pdf',compact('allData', 'customer'));
     }
 
-    public function CustomerWisePaidReport(Request $request){
-        $allData = Payment::where('customer_id',$request->customer_id)->where('paid_status','!=','full_due')->with('invoice')->get();
+    public function CustomerWisePaidReport(Request $request) {
+        $allData = PartialPayment::where('customer_id', $request->customer_id)->get();
+    
         $customer = Customer::where('id', $request->customer_id)->first();
-
-        return view('backend.pdf.customer_wise_paid_pdf',compact('allData', 'customer'));
+    
+        return view('backend.pdf.customer_wise_paid_pdf', compact('allData', 'customer'));
     }
+    
 }
