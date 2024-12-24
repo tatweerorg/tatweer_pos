@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\Salary;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class EmployeeController extends Controller
@@ -121,6 +122,15 @@ class EmployeeController extends Controller
         $start_date = date('Y-m-d', strtotime($request->start_date));
         $end_date = date('Y-m-d', strtotime($request->end_date));
         $allData = Employee::whereBetween('startdate', [$start_date, $end_date])->get();
+        $salaryData= DB::table('salaries')
+                    ->select('employee_id', DB::raw('SUM(salaryremaning_value)as total_remaining_salary'))
+                    ->groupBy('employee_id')
+                    ->get();
+        $allData->each(function($employee) use ($salaryData){
+            $employee->total_remaining_salary = $salaryData->where('employee_id', $employee->id)->first()->total_remaining_salary ?? 0;
+        }
+
+        );
         return view('backend.pdf.daily_employee_report_pdf', compact('allData', 'start_date', 'end_date'));
     }
 

@@ -65,9 +65,8 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <td><strong># </strong></td>
+                                                             <td class="text-center"><strong>رقم الدفعة</strong>
                                                             <td class="text-center"><strong>اسم الزبون</strong></td>
-                                                            <td class="text-center"><strong>رقم الفاتورة</strong>
                                                             </td>
                                                             <td class="text-center"><strong>التاريخ</strong>
                                                             </td>
@@ -82,14 +81,13 @@
                                                         @endphp
                                                         @foreach($allData as $key => $item)
                                                         <tr>
-                                                            <td class="text-center">{{ $key+1 }}</td>
+                                                                                                                        <td class="text-center">#{{ $item->id }}</td>
                                                             <td class="text-center">{{ $item['customer']['name'] }}</td>
-                                                            <td class="text-center">#{{ $item['invoice']['invoice_no'] }}</td>
-                                                            <td class="text-center">{{ $item['invoice']['date'] }}</td>
-                                                            <td class="text-center">{{ $item->due_amount }}</td>
+                                                            <td class="text-center">{{ $item->payment_date }}</td>
+                                                            <td class="text-center">{{ $item->amount }}</td>
                                                         </tr>
                                                         @php
-                                                        $total_due += $item->due_amount;
+                                                        $total_due += $item->amount;
                                                         @endphp
                                                         @endforeach
                                                         <tr>

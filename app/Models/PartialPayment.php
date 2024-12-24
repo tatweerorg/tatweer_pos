@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Invoice;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PartialPayment extends Model
 {
@@ -13,13 +14,17 @@ class PartialPayment extends Model
     protected $fillable = [
         'customer_id',
         'amount',
-
         'payment_date',
+        'invoice_id'
     ];
 
     // إنشاء علاقة الربط مع نموذج Customer
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class, 'invoice_id');
     }
 }
