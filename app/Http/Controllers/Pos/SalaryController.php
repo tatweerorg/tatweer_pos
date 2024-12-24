@@ -30,14 +30,14 @@ class SalaryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
- 
+
 
     /**
      * Display the specified resource.
      */
     public function show($id)
-    { 
-        
+    {
+
         // التحقق من وجود الموظف
         $employee = Employee::findOrFail($id);
 
@@ -47,7 +47,8 @@ class SalaryController extends Controller
         // عرض الصفحة مع تمرير بيانات الموظف وتفاصيل الراتب
         return view('backend.employee.employeesalary', [
             'salaryDetails' => $salaryDetails,
-            'employeeId' => $id
+            'employeeId' => $id,
+            'employee' => $employee
         ]);
     }
 
@@ -61,26 +62,27 @@ class SalaryController extends Controller
     {
         $request->validate([
             'employee_id' => 'required|exists:employees,id',
-            'advance_amount' => 'required|numeric',
-            'advance_month' => 'required|date_format:Y-m',
+            'advance_amount' => 'numeric',
+            'advance_month' => 'date_format:Y-m',
         ]);
+
         $inputMonth = $request->input('advance_month');
         $formattedMonth = Carbon::createFromFormat('Y-m', $inputMonth)->format('m-Y');
 
         $salaryRecord = Salary::where('employee_id', $request->input('employee_id'))
-                              ->where('month', $formattedMonth)
-                              ->first();
-        
-        if($salaryRecord){
+            ->where('month', $formattedMonth)
+            ->first();
+
+        if ($salaryRecord) {
             $salaryRecord->update(
                 [
-                    'salarypaid_value'=> $salaryRecord->salarypaid_value + $request->input('advance_amount'),
-                    'salaryremaning_value'=> $salaryRecord->salary_value -($salaryRecord->salarypaid_value + $request->input('advance_amount')),
+                    'salarypaid_value' => $salaryRecord->salarypaid_value + $request->input('advance_amount'),
+                    'salaryremaning_value' => $salaryRecord->salary_value - ($salaryRecord->salarypaid_value + $request->input('advance_amount')),
                     'advance' => $request->input('advance_amount'),
                     'salary_status' => 'Partial',
                 ]
-                );
-        }else {
+            );
+        } else {
             Salary::create([
                 'employee_id' => $request->input('employee_id'),
                 'month' => $request->input('advance_month'),
@@ -89,7 +91,7 @@ class SalaryController extends Controller
                 'salary_status' => 'Partial', // يمكن تغيير الحالة وفقًا للمتطلبات
                 'salary_value' => 0, // يمكنك ضبط هذه القيمة وفقًا لحاجتك
                 'salarypaid_value' =>  $request->input('advance_amount'), // يمكنك ضبط هذه القيمة وفقًا لحاجتك
-                'salaryremaning_value' => 0 , // يمكنك ضبط هذه القيمة وفقًا لحاجتك
+                'salaryremaning_value' => 0, // يمكنك ضبط هذه القيمة وفقًا لحاجتك
             ]);
         }
 
@@ -100,35 +102,35 @@ class SalaryController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $salary = Salary::findOrFail($id);
-        if($request->input('salary_status') == 'Paid'){
+        if ($request->input('salary_status') == 'Paid') {
             $salary->update([
                 'salary_status' => $request->input('salary_status'),
                 'salarypaid_value' => $salary->salary_value,
                 'salaryremaning_value' => 0,
             ]);
-        }else if ($request->input('salary_status') == 'unPaid'){
+        } else if ($request->input('salary_status') == 'unPaid') {
             $salary->update([
                 'salary_status' => $request->input('salary_status'),
                 'salarypaid_value' => 0,
                 'salaryremaning_value' => $salary->salary_value,
             ]);
-        }else if($request->input('salary_status') == 'Partial'){
+        } else if ($request->input('salary_status') == 'Partial') {
             $salary->update([
                 'salary_status' => $request->input('salary_status'),
                 'salarypaid_value' => $request->input('salary_status') === 'Partial' ? $request->input('partial_salary') : $salary->salarypaid_value,
                 'salaryremaning_value' => $salary->salary_value - $request->input('partial_salary'),
             ]);
-        }else {
+        } else {
             $salary->update([
                 'salary_status' => $request->input('salary_status'),
-             
-            ]); 
+
+            ]);
         }
-       
-    
+
+
         return redirect()->back()->with('success', 'تم تحديث حالة الراتب بنجاح.');
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */

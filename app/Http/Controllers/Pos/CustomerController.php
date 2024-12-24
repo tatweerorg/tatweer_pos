@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\Payment;
 use App\Models\PaymentDetail;
+use App\Models\PartialPayment;
+
 use Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
@@ -58,12 +60,13 @@ class CustomerController extends Controller
         return view('backend.customer.customer_edit',compact('customer'));
     }
     public function CustomerView($id){
-        $customer = Customer::FindOrFail($id);
+       $customer = Customer::FindOrFail($id);
+$partialpayments = PartialPayment::where('customer_id', $id)->get();
         $Payments= Payment::where('customer_id',$id)
                                 -> whereIn('paid_status',['full_due','partial_paid', 'full_paid'])
                                 ->get();
         
-        return view('backend.customer.customer_view',compact('customer', 'Payments'));
+        return view('backend.customer.customer_view',compact('customer', 'Payments','partialpayments'));
     }
     public function CustomerUpdate(Request $request){
         $customer_id=$request->id;
@@ -193,9 +196,12 @@ class CustomerController extends Controller
         return view('backend.pdf.invoice_details_pdf',compact('payment'));
     }
 
-    public function PaidCustomer(){
-        $allData = Payment::where('paid_status','!=','full_due')->get();
-        return view('backend.customer.customer_paid',compact('allData'));
+     public function PaidCustomer() {
+        $allData = Payment::where('paid_status', '!=', 'full_due')
+                          ->with(['Customer', 'paymentDetails']) 
+                          ->get();
+    
+        return view('backend.customer.customer_paid', compact('allData'));
     }
 
     public function PaidCustomerPrintPdf(){

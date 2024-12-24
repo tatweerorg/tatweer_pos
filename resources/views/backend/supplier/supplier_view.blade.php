@@ -51,7 +51,7 @@
 
                                     <tr>
                                         <td>{{ $payment->purchase_id }}</td>
-                                        <td>{{ $payment->created_at }}</td>
+                                        <td>{{ $payment->purchase->date }}</td>
                                         <td class=" bg-primary text-white text-center fw-bold fs-5">{{ $payment->total_amount }}</td>
                                         <td class=" bg-danger text-white text-center fw-bold fs-5">{{ $payment->due_amount }}</td>
                                         <td class=" bg-success text-white text-center fw-bold fs-5">{{ $payment->paid_amount }}</td>

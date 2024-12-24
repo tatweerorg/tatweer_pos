@@ -9,7 +9,6 @@
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0">تقرير ديون الزبون</h4>
-
                 </div>
             </div>
         </div>
@@ -24,7 +23,6 @@
                             <div class="col-12">
                                 <div class="invoice-title">
                                     <h3>
-                                        <!-- <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo" height="100" /> -->
                                         فحم الزين
                                     </h3>
                                 </div>
@@ -35,11 +33,6 @@
                                             نوبا و الخليل<br>
                                             حسن الطرمان :0568190719<br>
                                             تحسين الطرمان :0595109779
-                                        </address>
-                                    </div>
-                                    <div class="col-6 mt-4 text-end">
-                                        <address>
-
                                         </address>
                                     </div>
                                 </div>
@@ -57,51 +50,36 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <td><strong>Sl </strong></td>
-                                                        <td class="text-center"><strong>اسم الزبون</strong></td>
-                                                        <td class="text-center"><strong>رقم الفاتورة</strong>
-                                                        </td>
-                                                        <td class="text-center"><strong>التاريخ</strong>
-                                                        </td>
-                                                        <td class="text-center"><strong>المبلغ المستحق</strong>
-                                                        </td>
+                                                        <td><strong>اسم الزبون</strong></td>
+                                                        <td class="text-center"><strong>اجمالي المبلغ المستحق</strong></td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <!-- foreach ($order->lineItems as $line) or some such thing here -->
                                                     @php
-                                                    $total_due = '0';
+                                                    $total_due = [];
                                                     @endphp
-                                                    @foreach($allData as $key => $item)
-                                                    <tr>
-                                                        <td class="text-center">{{ $key+1 }}</td>
-                                                        <td class="text-center">{{ $item['customer']['name'] }}</td>
-                                                        <td class="text-center">#{{ $item['invoice']['invoice_no'] }}</td>
-                                                        <td class="text-center">{{( date('d-m-Y',strtotime($item['invoice']['date'])) )}}</td>
-                                                        <td class="text-center">{{ $item->due_amount }}</td>
-
-                                                    </tr>
-                                                    @php
-                                                    $total_due += $item->due_amount;
-                                                    @endphp
+                                                    @foreach($allData as $item)
+                                                        @php
+                                                        $customerName = $item['customer']['name'];
+                                                        if (!isset($total_due[$customerName])) {
+                                                            $total_due[$customerName] = 0;
+                                                        }
+                                                        $total_due[$customerName] += $item->due_amount;
+                                                        @endphp
                                                     @endforeach
-                                                    <tr>
-                                                        <td class="no-line"></td>
-                                                        <td class="no-line"></td>
-                                                        <td class="no-line"></td>
-                                                        <td class="no-line text-center">
-                                                            <strong>اجمالي المبلغ المستحق</strong>
-                                                        </td>
-                                                        <td class="no-line text-end">
-                                                            <h4 class="m-0"> ₪{{ $total_due }}</h4>
-                                                        </td>
-                                                    </tr>
+
+                                                    @foreach($total_due as $customer => $amount)
+                                                        <tr>
+                                                            <td class="text-center">{{ $customer }}</td>
+                                                            <td class="text-center">₪{{ $amount }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
 
                                         @php
-                                        $date = new DateTime('now',new DateTimeZone('Asia/Dhaka'));
+                                        $date = new DateTime('now', new DateTimeZone('Asia/Dhaka'));
                                         @endphp
                                         <i>Printing Time : {{ $date->format('F j, Y, g:i a') }}</i>
 
@@ -112,7 +90,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

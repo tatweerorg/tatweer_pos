@@ -88,7 +88,7 @@
                                 $totalBuyingPrice = App\Models\Purchase::where('status', 1)->sum('buying_price');
                                 @endphp
                                 <p class="text-truncate font-size-22 mb-2">إجمالي المشتريات</p>
-                                <h4 class="mb-2">{{ $totalBuyingPrice }}</h4>
+<h4 class="mb-2">{{ number_format($totalBuyingPrice, 2) }}</h4>
                             </div>
                             <div class="avatar-sm">
                                 <span class="avatar-title bg-light text-primary rounded-3">
@@ -114,7 +114,7 @@
                                 }, 0);
                                 @endphp
                                 <p class="text-truncate font-size-22 mb-2">إجمالي المبيعات</p>
-                                <h4 class="mb-2">{{ $totalBuyingPrice }}</h4>
+                                <h4 class="mb-2">{{ number_format($totalBuyingPrice )}}</h4>
                             </div>
                             <div class="avatar-sm">
                                 <span class="avatar-title bg-light text-primary rounded-3">

@@ -28,7 +28,6 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>اسم الزبون</th>
                                 <th>رقم الفاتورة</th>
                                 <th>التاريخ</th>
                                 <th>المبلغ المستحق</th>
@@ -41,7 +40,6 @@
                             @foreach($allData as $key =>$item)
                             <tr>
                                 <td>{{( $key+1 )}}</td>
-                                <td>{{( $item['customer']['name'] )}}</td>
                                 <td>#{{( $item['invoice']['invoice_no'] )}}</td>
                                 <td>{{( date('d-m-Y',strtotime($item['invoice']['date'])) )}}</td>
                                 <td>{{ $item->due_amount }}</td>

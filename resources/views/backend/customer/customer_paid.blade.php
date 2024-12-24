@@ -28,27 +28,28 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>اسم الزبون</th>
                                 <th>رقم الفاتورة</th>
-                                <th>التاريخ</th>
-                                <th>المبلغ المستحق</th>
-                                <th>العمليات </th>
+                                <th>المبلغ المدفوع</th>
+                                <th>المبلغ المتبقي</th>
+                                <th>حالة الدفع</th>
+                                <th>العمليات</th>
                             </tr>
                             </thead>
 
-
                             <tbody>
-                            @foreach($allData as $key =>$item)
-                            <tr>
-                                <td>{{( $key+1 )}}</td>
-                                <td>{{( $item['customer']['name'] )}}</td>
-                                <td>{{( $item['invoice']['invoice_no'] )}}</td>
-                                <td>{{( date('d-m-Y',strtotime($item['invoice']['date'])) )}}</td>
-                                <td>{{( $item->due_amount )}}</td>
-                                <td>
-                                    <a href="{{route('customer.invoice.details.pdf',$item->invoice_id)}}" target="_blank" class="btn btn-info sm" title="View Data"><i class="fas fa-eye"></i></a>
-                                </td>
-                            </tr>
+                            @foreach($allData as $key => $invoice)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $invoice->invoice_id }}</td>
+                                    <td>{{ $invoice->paid_amount }}</td>
+                                    <td>{{ $invoice->due_amount }}</td>
+                                    <td>{{ $invoice->paid_status }}</td>
+                                    <td>
+                                        <a href="{{ route('customer.invoice.details.pdf', $invoice->id) }}" class="btn btn-info sm" title="عرض التفاصيل">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>

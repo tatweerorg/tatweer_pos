@@ -72,9 +72,9 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>{{ $payment['customer']['name'] }}</td>
-                                                        <td class="text-center">{{ $payment['customer']['mobile_no'] }}</td>
-                                                        <td class="text-center">{{ $payment['customer']['email'] }}</td>
+                                                        <td>{{ $payment['customer']['name']?? Null}}</td>
+                                                        <td class="text-center">{{ $payment['customer']['mobile_no']?? Null }}</td>
+                                                        <td class="text-center">{{ $payment['customer']['email']?? Null }}</td>
                                                         <td class="text-center">{{ $invoice->description }}</td>
                                                     </tr>
                                                 </tbody>

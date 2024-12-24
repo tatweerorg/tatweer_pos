@@ -70,7 +70,7 @@ class InvoiceController extends Controller
                 $invoice->invoice_no = $request->invoice_no;
                 $invoice->date = date('Y-m-d', strtotime($request->date));
                 $invoice->description = $request->description;
-                $invoice->status = '0';
+                $invoice->status = '1';
                 $invoice->created_by = Auth::user()->id;
 
                 DB::transaction(function () use ($request, $invoice) {
@@ -95,7 +95,7 @@ class InvoiceController extends Controller
                                 $invoice_details->selling_qty = $request->selling_qty[$i];
                                 $invoice_details->unit_price = $request->unit_price[$i];
                                 $invoice_details->selling_price = $request->selling_price[$i];
-                                $invoice_details->status = '0';
+                                $invoice_details->status = '1';
                                 $invoice_details->save();
                             }
                         }
@@ -146,7 +146,7 @@ class InvoiceController extends Controller
             'message' => 'Invoice Data Inserted Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('invoice.pending')->with($notification);
+        return redirect()->route('invoice.all')->with($notification);
     }
     public function InvoiceDelete($invoice_no)
     {

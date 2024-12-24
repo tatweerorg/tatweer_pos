@@ -46,6 +46,8 @@
                                         <option value="days">أيام</option>
                                         <option value="months">شهور</option>
                                         <option value="Contractor ">مقاولة</option>
+                                        <option value="kelos ">كيلو</option>
+
                                     </select>
                                 </div>
                             </div>

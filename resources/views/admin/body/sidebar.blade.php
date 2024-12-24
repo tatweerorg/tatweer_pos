@@ -90,7 +90,6 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('invoice.all')}}">جميع الفواتير</a></li>
-                        <li><a href="{{route('invoice.pending')}}">الموافقة على فاتورة</a></li>
                         <li><a href="{{route('print.invoiceList')}}">طباعة فاتورة </a></li>
                         <li><a href="{{route('daily.invoice.report')}}">تقرير الفواتير اليومية</a></li>
                     </ul>
